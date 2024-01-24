@@ -277,33 +277,33 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.4.9", "essential-blocks")}
+                                    {__("Version: 4.4.10", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("17/01/2024", "essential-blocks")}
+                                        {__("24/01/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Improved: Reduce too many request on update page/post",
+                                            "Fixed: Advanced Navigation block color conflict with Twenty Twenty Four theme",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Improved: Table of Contents block multiple request reduce on editor load",
+                                            "Fixed: Row/Columns block column broken issue with Twenty Twenty Four theme",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Infobox block icon color issue",
+                                            "Improved: Reduce dynamic query load and implement cache queries",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Navigation default margin bottom removed",
+                                            "Improved: Security Enhancement and bug fix",
                                             "essential-blocks"
                                         )}
                                     </li>
