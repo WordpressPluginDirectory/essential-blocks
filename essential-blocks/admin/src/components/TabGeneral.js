@@ -277,7 +277,7 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.4.10", "essential-blocks")}
+                                    {__("Version: 4.4.11", "essential-blocks")}
                                     <span className="changelog-date">
                                         {__("24/01/2024", "essential-blocks")}
                                     </span>
@@ -285,25 +285,19 @@ export default function TabGeneral() {
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Navigation block color conflict with Twenty Twenty Four theme",
+                                            "Table of Contents block issue with PHP@7.2",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Row/Columns block column broken issue with Twenty Twenty Four theme",
+                                            "Fixed: Table of Contents block special character support issue",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Improved: Reduce dynamic query load and implement cache queries",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Improved: Security Enhancement and bug fix",
+                                            "Fixed: Accordion block expanded color issue",
                                             "essential-blocks"
                                         )}
                                     </li>
