@@ -277,39 +277,45 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.6.0", "essential-blocks")}
+                                    {__("Version: 4.7.0", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("20/05/2024", "essential-blocks")}
+                                        {__("05/06/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Added: Visibility Options for customize design each block",
+                                            "Added: Global Typography Control",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Update Openverse block API changes",
+                                            "Added: Theme font support in Essential Blocks Typography Picker",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Form block default layout issues",
+                                            "Added: Save & Insert button in block default control",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Woo Product Grid font size issues",
+                                            "Improved: Reduce Google font request in Editor",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Improved: Block Defaults improvements",
+                                            "Fixed: Google font weight issue",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Global Font reset not working",
                                             "essential-blocks"
                                         )}
                                     </li>
