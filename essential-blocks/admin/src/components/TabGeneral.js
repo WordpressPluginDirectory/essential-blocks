@@ -277,39 +277,45 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.7.2", "essential-blocks")}
+                                    {__("Version: 4.7.4", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("12/06/2024", "essential-blocks")}
+                                        {__("02/07/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Animation Delay Option not working for blocks",
+                                            "Improved: Advanced Tab | Added option to disable min height for vertical layout",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Column Block | responsive not working properly",
+                                            "Improved: Advanced Tab | Added option for responsive layout switch on vertical layout",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Column Block | animation not working properly",
+                                            "Fixed: Advanced Tabs | Active tab icon color not working",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Responsive control not working properly for all blocks",
+                                            "Fixed: Team Member | Images removed on attempt recovery issue",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Minor bug fixes & improvements",
+                                            "Fixed: Removed Edit HTML option for Advanced Tabs and Accordion Block to prevent attempt recovery",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: EB Dashboard | Blocks enable/disable reset on plugin update",
                                             "essential-blocks"
                                         )}
                                     </li>
