@@ -63,12 +63,13 @@ class Scripts
         wpdev_essential_blocks()->assets->register( 'editor-breakpoint', 'js/eb-editor-breakpoint.js' );
         wpdev_essential_blocks()->assets->register(
             'controls-util',
-            '../dist/modules.js',
+            'admin/controls/controls.js',
             [
                 'regenerator-runtime',
                 'essential-blocks-blocks-localize'
              ]
         );
+        wpdev_essential_blocks()->assets->register( 'store', 'admin/store/store.js', [ 'regenerator-runtime' ] ); //EB Store
 
         $editor_scripts_deps = [
             'essential-blocks-vendor-bundle',
@@ -82,27 +83,29 @@ class Scripts
             'essential-blocks-typedjs',
             'essential-blocks-slickjs',
             'essential-blocks-patterns',
+            'essential-blocks-store',
             'essential-blocks-editor-breakpoint'
          ];
 
-        if ( $pagenow === 'post.php' || $pagenow === 'post-new.php' || $pagenow === 'site-editor.php' ) {
+        if ( $pagenow === 'post.php' || $pagenow === 'post-new.php' ) {
             //global-styles
-            wpdev_essential_blocks()->assets->register( 'global-styles', '../lib/global-styles/dist/index.js' );
+            wpdev_essential_blocks()->assets->register( 'global-styles', 'admin/global-styles/global-styles.js' );
             $editor_scripts_deps[  ] = 'essential-blocks-global-styles';
 
             //templately-installer
+
             $show_pattern_library = get_option( ESSENTIAL_BLOCKS_HIDE_PATTERN_LIBRARY );
             if ( ! $show_pattern_library ) {
-                wpdev_essential_blocks()->assets->register( 'templately-installer', '../lib/templately-installer/dist/index.js' );
+                wpdev_essential_blocks()->assets->register( 'templately-installer', 'admin/templately/templately.js' );
                 $editor_scripts_deps[  ] = 'essential-blocks-templately-installer';
             }
         }
 
-        wpdev_essential_blocks()->assets->register( 'editor-script', '../dist/index.js', $editor_scripts_deps );
+        wpdev_essential_blocks()->assets->register( 'editor-script', 'admin/editor/editor.js', $editor_scripts_deps ); //Main Editor Script
 
         // If vendor files has css and extists
-        if ( file_exists( ESSENTIAL_BLOCKS_DIR_PATH . 'vendor-bundle/style.css' ) ) {
-            wpdev_essential_blocks()->assets->register( 'admin-vendor-style', '../vendor-bundle/style.css' );
+        if ( file_exists( ESSENTIAL_BLOCKS_DIR_PATH . 'assets/vendors/css/bundles.css' ) ) {
+            wpdev_essential_blocks()->assets->register( 'admin-vendor-style', 'vendors/css/bundles.css' );
         }
 
         $editor_styles_deps = [
@@ -124,20 +127,16 @@ class Scripts
 
         if ( $pagenow !== 'widgets.php' ) {
             //Global Styles
-            wpdev_essential_blocks()->assets->register( 'global-styles', '../lib/global-styles/dist/style.css', [ 'dashicons' ] );
+            wpdev_essential_blocks()->assets->register( 'global-styles', 'admin/global-styles/global-styles.css', [ 'dashicons' ] );
             $editor_styles_deps[  ] = 'essential-blocks-global-styles';
 
             //templately-installer
-            wpdev_essential_blocks()->assets->register( 'templately-installer', '../lib/templately-installer/dist/style.css' );
+            wpdev_essential_blocks()->assets->register( 'templately-installer', 'admin/templately/templately.css' );
             $editor_styles_deps[  ] = 'essential-blocks-templately-installer';
         }
 
-        //Iconpicker css
-        wpdev_essential_blocks()->assets->register( 'iconpicker-css', '../dist/style-modules.css' );
-        $editor_styles_deps[  ] = 'essential-blocks-iconpicker-css';
-
         // register styles
-        wpdev_essential_blocks()->assets->register( 'editor-css', '../dist/modules.css', $editor_styles_deps );
+        wpdev_essential_blocks()->assets->register( 'editor-css', 'admin/controls/controls.css', $editor_styles_deps );
     }
 
     /**
@@ -150,12 +149,13 @@ class Scripts
         wpdev_essential_blocks()->assets->register( 'eb-animation', 'js/eb-animation-load.js' );
         wpdev_essential_blocks()->assets->register( 'animation', 'css/animate.min.css' );
 
-        wpdev_essential_blocks()->assets->register( 'vendor-bundle', '../vendor-bundle/index.js' );
+        wpdev_essential_blocks()->assets->register( 'babel-bundle', 'vendors/js/bundle.babel.js' );
+        wpdev_essential_blocks()->assets->register( 'vendor-bundle', 'vendors/js/bundles.js', [ 'essential-blocks-babel-bundle' ] );
 
         //Register block combined styles
         $css_file                        = 'eb-style' . DIRECTORY_SEPARATOR . 'frontend' . DIRECTORY_SEPARATOR . 'style.css';
         $css_with_custom_breakpoint_path = wp_upload_dir()[ 'basedir' ] . DIRECTORY_SEPARATOR . $css_file;
-        $frontend_css_file               = '../dist/style.css';
+        $frontend_css_file               = 'admin/editor/editor.css';
         if ( file_exists( $css_with_custom_breakpoint_path ) ) {
             $frontend_css_file = wp_upload_dir()[ 'baseurl' ] . '/eb-style/frontend/style.css';
         }
@@ -178,9 +178,10 @@ class Scripts
         wpdev_essential_blocks()->assets->register( 'flv', 'js/react-player/flv.min.js' );
         wpdev_essential_blocks()->assets->register( 'dash', 'js/react-player/dash.all.min.js' );
         wpdev_essential_blocks()->assets->register( 'hls', 'js/react-player/hls.min.js' );
+        wpdev_essential_blocks()->assets->register( 'fslightbox-js', 'js/fslightbox.min.js' );
         // dashicon
         wp_enqueue_style( 'dashicons' );
-        wpdev_essential_blocks()->assets->register( 'controls-frontend', '../dist/frontend.js' );
+        wpdev_essential_blocks()->assets->register( 'controls-frontend', 'admin/controls/frontend-controls.js' );
 
         //Run Global frontend styles
         self::global_frontend_styles();
@@ -261,8 +262,8 @@ class Scripts
             :root {
                 {$colors_css}
                 {$responsive_css}
-                {$custom_typography_css__var}
             }
+            {$custom_typography_css__var}
             {$global_typography_css}
         ";
         wp_add_inline_style( 'essential-blocks-frontend-style', $custom_css );
@@ -331,10 +332,30 @@ class Scripts
             } elseif ( $element === 'allHeadings' ) {
                 $selector = ':is(h1, h2, h3, h4, h5, h6)';
             }
-
-            $cssString .= ".eb-parent-wrapper $selector { ";
-            $cssString .= self::generateCssStyles( $style );
-            $cssString .= "}\n"; // Close the style block
+            $styleArr = self::generateCssStyles( $style );
+            if ( is_array( $styleArr ) ) {
+                $brakpoint = Helper::get_responsive_breakpoints();
+                foreach ( $styleArr as $deviceType => $stylecss ) {
+                    if ( strlen( trim( $stylecss ) ) === 0 ) {
+                        continue;
+                    }
+                    if ( $deviceType === 'desktop' ) {
+                        $cssString .= ".eb-parent-wrapper $selector { ";
+                        $cssString .= $stylecss;
+                        $cssString .= "}\n"; // Close the style block
+                    } else if ( $deviceType === 'tablet' ) {
+                        $cssString .= "@media all and (max-width: " . $brakpoint[ $deviceType ] . "px) {";
+                        $cssString .= ".eb-parent-wrapper $selector {";
+                        $cssString .= $stylecss;
+                        $cssString .= "}}\n"; // Close the style block
+                    } else if ( $deviceType === 'mobile' ) {
+                        $cssString .= "@media all and (max-width: " . $brakpoint[ $deviceType ] . "px) {";
+                        $cssString .= ".eb-parent-wrapper $selector {";
+                        $cssString .= $stylecss;
+                        $cssString .= "}}\n"; // Close the style block
+                    }
+                }
+            }
         }
 
         return $cssString;
@@ -347,7 +368,23 @@ class Scripts
         }
         $css = '';
         foreach ( $styles as $element => $style ) {
-            $css .= self::generateCssStyles( $style, $element );
+            $styleArr = self::generateCssStyles( $style, $element );
+            if ( is_array( $styleArr ) ) {
+                $brakpoint = Helper::get_responsive_breakpoints();
+                foreach ( $styleArr as $deviceType => $stylecss ) {
+                    if ( $deviceType === 'desktop' ) {
+                        $css .= ":root { $stylecss}";
+                    } else if ( $deviceType === 'tablet' ) {
+                        $css .= "@media all and (max-width: " . $brakpoint[ $deviceType ] . "px) {";
+                        $css .= ":root { $stylecss}";
+                        $css .= "}\n"; // Close the style block
+                    } else if ( $deviceType === 'mobile' ) {
+                        $css .= "@media all and (max-width: " . $brakpoint[ $deviceType ] . "px) {";
+                        $css .= ":root { $stylecss}";
+                        $css .= "}\n"; // Close the style block
+                    }
+                }
+            }
         }
         return $css;
     }
@@ -360,12 +397,12 @@ class Scripts
         if ( ! empty( $varPrefix ) ) {
             $varPrefix = "--$varPrefix-";
         }
-        $css    = '';
-        $styles = (array) $styles;
+        $css     = '';
+        $tab_css = '';
+        $mob_css = '';
+        $styles  = (array) $styles;
         foreach ( $styles as $styleKey => $value ) {
-            // Convert camelCase to kebab-case for CSS properties
-            $cssProperty = strtolower( preg_replace( '/([a-zA-Z])(?=[A-Z])/', '$1-', $styleKey ) );
-            $cssValue    = $value;
+            $cssValue = $value;
             switch ( $styleKey ) {
                 case 'fontFamily':
                     $css .= "$varPrefix" . "font-family: $cssValue;\n";
@@ -374,6 +411,14 @@ class Scripts
                     $unit = isset( $styles[ 'fontSizeUnit' ] ) ? $styles[ 'fontSizeUnit' ] : 'px';
                     $css .= "$varPrefix" . "font-size: $cssValue$unit;\n";
                     break;
+                case 'TABfontSize':
+                    $unit = $styles[ 'TABfontSizeUnit' ] ?? $styles[ 'fontSizeUnit' ] ?? 'px';
+                    $tab_css .= "$varPrefix" . "font-size: $cssValue$unit;\n";
+                    break;
+                case 'MOBfontSize':
+                    $unit = $styles[ 'MOBfontSizeUnit' ] ?? $styles[ 'fontSizeUnit' ] ?? 'px';
+                    $mob_css .= "$varPrefix" . "font-size: $cssValue$unit;\n";
+                    break;
                 case 'fontWeight':
                     $css .= "$varPrefix" . "font-weight: $cssValue;\n";
                     break;
@@ -381,9 +426,25 @@ class Scripts
                     $unit = isset( $styles[ 'letterSpacingUnit' ] ) ? $styles[ 'letterSpacingUnit' ] : 'px';
                     $css .= "$varPrefix" . "letter-spacing: $cssValue$unit;\n";
                     break;
+                case 'TABletterSpacing':
+                    $unit = $styles[ 'TABletterSpacingUnit' ] ?? $styles[ 'letterSpacingUnit' ] ?? 'px';
+                    $tab_css .= "$varPrefix" . "letter-spacing: $cssValue$unit;\n";
+                    break;
+                case 'MOBletterSpacing':
+                    $unit = $styles[ 'MOBletterSpacingUnit' ] ?? $styles[ 'letterSpacingUnit' ] ?? 'px';
+                    $mob_css .= "$varPrefix" . "letter-spacing: $cssValue$unit;\n";
+                    break;
                 case 'lineHeight':
                     $unit = isset( $styles[ 'lineHeightUnit' ] ) ? $styles[ 'lineHeightUnit' ] : 'px';
                     $css .= "$varPrefix" . "line-height: $cssValue$unit;\n";
+                    break;
+                case 'TABlineHeight':
+                    $unit = $styles[ 'TABlineHeightUnit' ] ?? $styles[ 'lineHeightUnit' ] ?? 'px';
+                    $tab_css .= "$varPrefix" . "line-height: $cssValue$unit;\n";
+                    break;
+                case 'MOBlineHeight':
+                    $unit = $styles[ 'MOBlineHeightUnit' ] ?? $styles[ 'lineHeightUnit' ] ?? 'px';
+                    $mob_css .= "$varPrefix" . "line-height: $cssValue$unit;\n";
                     break;
                 case 'fontStyle':
                     $css .= "$varPrefix" . "font-style: $cssValue;\n";
@@ -396,7 +457,11 @@ class Scripts
                     break;
             }
         }
-        return $css;
+        return [
+            'desktop' => $css,
+            'tablet'  => $tab_css,
+            'mobile'  => $mob_css
+         ];
     }
 
     /**
@@ -425,10 +490,6 @@ class Scripts
                 'editor_type' => $editor_type
              ] : [  ]
         );
-
-        $eb_settings = get_option( 'eb_settings', [  ] );
-        $googleFont  = ! empty( $eb_settings[ 'googleFont' ] ) ? $eb_settings[ 'googleFont' ] : 'true';
-        $fontAwesome = ! empty( $eb_settings[ 'fontAwesome' ] ) ? $eb_settings[ 'fontAwesome' ] : 'true';
 
         $plugin = $this->plugin;
 
@@ -463,6 +524,10 @@ class Scripts
              ];
 
             $localize_array = array_merge( $localize_array, $admin_localize_array );
+        }
+
+        if ( class_exists( 'WooCommerce' ) ) {
+            $localize_array[ "wc_currency_symbol" ] = get_woocommerce_currency_symbol();
         }
 
         wpdev_essential_blocks()->assets->localize( 'blocks-localize', 'EssentialBlocksLocalize', $localize_array );

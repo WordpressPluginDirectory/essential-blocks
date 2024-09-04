@@ -3,12 +3,12 @@ Contributors: wpdevteam, re_enter_rupok, asif2bd, rahat89, priyomukul, jamilbd07
 Tags: WordPress Block Editor, Gutenberg Blocks Plugin, WooCommerce, Gutenberg Templates, Page Builder
 Requires at least: 5.8
 Tested up to: 6.6
-Requires PHP: 7.0
-Stable tag: 4.8.4
+Requires PHP: 7.4
+Stable tag: 4.9.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
-The Essential Blocks Library for WordPress Gutenberg Editor.
+The powerful Gutenberg blocks library to create stunning websites in the WordPress Gutenberg Editor with 50+ advanced blocks for WooCommerce, post grids & more.
 
 == Description ==
 Bring your creative visions to life with **[Essential Blocks for Gutenberg](https://essential-blocks.com/)**, the ultimate blocks library for WordPress!
@@ -230,25 +230,33 @@ If you found the recent version of Essential Blocks isn’t working or conflicti
 
 == Changelog ==
 
+= 4.9.1 - 03/09/2024 =
+- Added: Responsive typography support
+- Added: Product Grid | Product Image Clickable Option
+- Fixed: Post Carousel | Posts not showing for default query
+- Fixed: NFT Gallery | API updated to v2.0
+- Fixed: Slider | Loading icon showing all time if image is transparent
+- Fixed: Image Gallery | Image size settings reverted to default
+- Fixed: Toggle Content | z-index conflict with Astra theme
+- Few minor bug fixes & improvements
+
+= 4.9.0 - 27/08/2024 =
+- Improved: Optimized codebase for better performance and efficiency
+- Fixed: Synced Pattern re-render issue in some blocks
+- Fixed: EB Post Carousel | Throwing PHP warning
+- Few minor bug fixes & improvements
+
 = 4.8.4 - 13/08/2024 =
 - Fixed: Style generation conflict with Generatepres
 - Fixed: Image Gallery | URL removed when new image add
 - Fixed: Slider | Images appeared broken at first glance
 - Improved: Security enhancement
 
-= 4.8.3 - 27/07/2024 =
-- Fixed: Google Map | Incorrect map Pointer placement
-- Fixed: Color Picker not working in Firefox and Safari
-- Improved: Security enhancement
-
-= 4.8.2 - 16/07/2024 =
-- Fixed: Resolved an error in the editor for WordPress 6.6
-- Minor bug fixes & improvements
-
 [See changelog for all versions](https://essential-blocks.com/changelog).
 
 
 == Upgrade Notice ==
 
-= 4.8.0 =
-- Essential Blocks is now Compatible with WPML.
+= 4.9.0 =
+- Optimized the codebase for better performance and efficiency
+- Fixed Synced Pattern rerender issue
