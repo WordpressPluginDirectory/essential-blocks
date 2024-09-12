@@ -1,9 +1,9 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
-  "title": "Breadcrumb",
-  "name": "essential-blocks/breadcrumb",
+  "title": "Breadcrumbs",
+  "name": "essential-blocks/breadcrumbs",
   "category": "essential-blocks",
-  "description": "Breadcrumb Block.",
+  "description": "Make smooth navigation for your posts or pages by adding Breadcrumb",
   "apiVersion": 2,
   "textdomain": "essential-blocks",
   "supports": {

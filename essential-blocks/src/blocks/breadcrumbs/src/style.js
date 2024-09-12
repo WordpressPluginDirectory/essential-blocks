@@ -223,7 +223,8 @@ export default function Style(props) {
         .${blockId}.eb-breadcrumb-wrapper .eb-breadcrumb-item.current:hover {
             color: ${breadcrumbCurrentHvColor};
         }
-        .${blockId}.eb-breadcrumb-wrapper .eb-breadcrumb-separator *:not(i){
+        .${blockId}.eb-breadcrumb-wrapper .eb-breadcrumb-separator *:not(i),
+        .${blockId}.eb-breadcrumb-wrapper .eb-breadcrumb-separator {
             color: ${separatorColor};
             ${separatorTypoStylesDesktop}
         }
@@ -275,6 +276,7 @@ export default function Style(props) {
         .${blockId}.eb-breadcrumb-wrapper .eb-breadcrumb-item:hover a{
             ${breadcrumbBDShadowHoverTab}
         }
+        .${blockId}.eb-breadcrumb-wrapper .eb-breadcrumb-separator,
         .${blockId}.eb-breadcrumb-wrapper .eb-breadcrumb-separator *:not(i){
             ${separatorTypoStylesTab}
         }
@@ -326,6 +328,7 @@ export default function Style(props) {
         .${blockId}.eb-breadcrumb-wrapper .eb-breadcrumb-item:hover a{
             ${breadcrumbBDShadowHoverMobile}
         }
+        .${blockId}.eb-breadcrumb-wrapper .eb-breadcrumb-separator,
         .${blockId}.eb-breadcrumb-wrapper .eb-breadcrumb-separator *:not(i){
             ${separatorTypoStylesMobile}
         }

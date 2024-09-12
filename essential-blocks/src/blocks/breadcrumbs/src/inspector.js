@@ -81,7 +81,7 @@ function Inspector(props) {
             <InspectorPanel.General>
                 <InspectorPanel.PanelBody title={__("Settings", "essential-blocks")} initialOpen={true}>
                     <ToggleControl
-                        label={__("Show home page", "essential-blocks")}
+                        label={__("Show Home Page", "essential-blocks")}
                         checked={showHomePage}
                         onChange={() => setAttributes({ showHomePage: !showHomePage })}
                     />

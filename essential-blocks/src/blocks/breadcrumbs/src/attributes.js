@@ -98,7 +98,7 @@ const attributes = {
     },
     separatorIcon: {
         type: "string",
-        default: 'far fa-check-circle'
+        default: 'fas fa-angle-right'
     },
     separatorText: {
         type: "string",
@@ -110,7 +110,7 @@ const attributes = {
     },
     breadcrumbGap: {
         type: "number",
-        default: 10,
+        default: 6,
     },
     prefixGap: {
         type: "number",
@@ -153,7 +153,7 @@ const attributes = {
         defaultRange: 20,
     }),
     ...generateResponsiveRangeAttributes(SEPARATOR_ICON_SIZE, {
-        defaultRange: 20,
+        defaultRange: 14,
     }),
 
     ...generateBorderShadowAttributes(BREADCRUMB_BORDER_SHADOW),
