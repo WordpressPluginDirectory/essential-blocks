@@ -277,51 +277,33 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 5.0.2", "essential-blocks")}
+                                    {__("Version: 5.0.4", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("02/10/2024", "essential-blocks")}
+                                        {__("14/10/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Improved: Post Grid & Post Carousel | Added an option to set a default featured image for posts with blank featured image",
+                                            "Fixed: Post Carousel | Image size changing unexpectedly",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Improved: Woo Product Grid | Added new query options to include or exclude specific products",
+                                            "Fixed: Accordion | Toggle feature not working properly",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Improved: Woo Product Grid | Added a Visit Product button for easier navigation",
+                                            "Fixed: Add to Cart | Error shown if WooCommerce plugin is not active",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Improved: Table of Contents | Added heading highlight within the viewport during scroll",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Improved: Post Query | Added options to exclude taxonomies across all post queries",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Accordion | Opening an accordion via anchor ID not functioning",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Infobox | Corrected the button background hover color not applying as expected",
+                                            "Minor bug fixes and improvements",
                                             "essential-blocks"
                                         )}
                                     </li>
