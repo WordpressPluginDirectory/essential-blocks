@@ -277,73 +277,78 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 5.2.2", "essential-blocks")}
+                                    {__("Version: 5.3.0", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("12/01/2025", "essential-blocks")}
+                                        {__("18/02/2025", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Added: Heading tag selection option for all blocks utilizing heading tags",
+                                            "Added: New Block | Lottie Animation",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Added: TOC | Additional position styles for sticky TOC",
+                                            "Fixed: Table of Contents | Design issues fixed",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Added: Slider | Lazy load support for slider images",
+                                            "Fixed: Progress Bar | Display alternate value based on percentage setting",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Filterable Gallery | Old images disappearing when new images are added",
+                                            "Fixed: Advanced Image | Image height resetting issue",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Heading | Heading URL not working on the first attempt",
+                                            "Fixed: Toggle Content | Design control for active item and other design improvements",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Image | Link URL not functioning correctly",
+                                            "Fixed: Advanced Heading | Background overlay over title",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Slider | Fade effect not displaying properly on the frontend",
+                                            "Fixed: Editor | Editable issue and error display after plugin update",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Infobox | Icon color resetting after editor reload",
+                                            "Fixed: Blocks Patterns | Cache update cron issue",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Improved: Security enhancement",
+                                            "Fixed: Reset control for Box Shadow",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Minor bug fixes and overall improvements",
+                                            "Improved: Security Enhancement",
                                             "essential-blocks"
                                         )}
                                     </li>
-
+                                    <li>
+                                        {__(
+                                            "Few minor bug fixes & improvements",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
                                 </ul>
 
                             </div>
