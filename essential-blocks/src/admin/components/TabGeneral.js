@@ -277,69 +277,51 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 5.3.0", "essential-blocks")}
+                                    {__("Version: 5.3.2", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("18/02/2025", "essential-blocks")}
+                                        {__("05/03/2025", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Added: New Block | Lottie Animation",
+                                            "Added: Quick Action Toolbar | Easily access most-used blocks",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Table of Contents | Design issues fixed",
+                                            "Added: Woo Product Grid | Display product category option",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Progress Bar | Display alternate value based on percentage setting",
+                                            "Fixed: Slider | RTL issues fixed",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Image | Image height resetting issue",
+                                            "Fixed: Advanced Tab | Active tab not displaying properly in editor",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Toggle Content | Design control for active item and other design improvements",
+                                            "Fixed: Filterable Gallery | Conflict with Autoptimize Lazyload",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Heading | Background overlay over title",
+                                            "Fixed: Toggle Content | Multiple blocks not supported inside toggle content",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Editor | Editable issue and error display after plugin update",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Blocks Patterns | Cache update cron issue",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Reset control for Box Shadow",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Improved: Security Enhancement",
+                                            "Improved: Security enhancements",
                                             "essential-blocks"
                                         )}
                                     </li>

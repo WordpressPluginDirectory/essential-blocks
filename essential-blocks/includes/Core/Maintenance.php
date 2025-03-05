@@ -25,8 +25,10 @@ class Maintenance
 
         if ( $requires_update ) {
             // Update Related Works
-            if ( ESSENTIAL_BLOCKS_WHATSNEW_REDIRECT != 'none' ) {
+            if ( ESSENTIAL_BLOCKS_WHATSNEW_REDIRECT !== 'none' ) {
                 set_transient( 'essential_block_maybe_whatsnew_redirect', true, MINUTE_IN_SECONDS * 10 );
+            } else if ( EB_SHOW_WHATS_NEW_NOTICE !== 'none' ) {
+                set_transient( 'essential_block_whats_new_notice', true, MINUTE_IN_SECONDS * 10 );
             }
 
             // Version Updated in DB.
@@ -38,6 +40,7 @@ class Maintenance
 
             //update all blocks in db
             update_option( 'essential_all_blocks', Blocks::all() );
+            update_option( 'essential_quick_toolbar_allowed_blocks', Blocks::quick_toolbar_blocks() );
 
             //Regenerate Assets
             StyleHandler::init()->remove_frontend_assets();
@@ -73,6 +76,8 @@ class Maintenance
     public static function activation()
     {
         update_option( 'essential_all_blocks', Blocks::all() );
+        update_option( 'essential_quick_toolbar_allowed_blocks', Blocks::quick_toolbar_blocks() );
+
         self::db_create_tables();
     }
 
