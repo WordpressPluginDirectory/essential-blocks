@@ -26,12 +26,13 @@ use EssentialBlocks\Integrations\Pagination;
 use EssentialBlocks\Integrations\GlobalStyles;
 use EssentialBlocks\Integrations\AssetGeneration;
 use EssentialBlocks\Integrations\PluginInstaller;
+use EssentialBlocks\Utils\SvgSanitizer;
 use EssentialBlocks\Admin\QuickSetup;
 
 final class Plugin
 {
     use HasSingletone;
-    public $version = '5.4.0';
+    public $version = '5.5.1';
 
     public $admin;
     /**
@@ -123,6 +124,9 @@ final class Plugin
         // Fetch Enabled Blocks if not than Default Block List
         self::$blocks = Blocks::get_instance( self::$settings );
 
+        // SVG Sanitizer
+        SvgSanitizer::get_instance();
+
         add_action( 'init', function () {
             /**
              * Register a meta `_eb_attr`
@@ -141,6 +145,10 @@ final class Plugin
 
         add_filter( 'upload_mimes', [ $this, 'eb_custom_mines_uploads' ], 20 );
         add_filter( 'wp_check_filetype_and_ext', [ $this, 'eb_handle_filetypes' ], 10, 5 );
+        add_filter( "wp_handle_upload_prefilter", [ $this, 'eb_handle_sanitize_svg' ] );
+
+        // Filter to prevent pro blocks from rendering in frontend when pro plugin is not active
+        add_filter( 'render_block', [ $this, 'filter_pro_blocks_frontend' ], 10, 2 );
 
         /**
          * Initialize.
@@ -215,8 +223,8 @@ final class Plugin
         $this->define( 'EB_PATTERN', true );
 
         //Those flags needs to update if notice
-        $this->define( 'EB_PROMOTION_FLAG', 9 );
-        $this->define( 'EB_ADMIN_MENU_FLAG', 9 );
+        $this->define( 'EB_PROMOTION_FLAG', 11 );
+        $this->define( 'EB_ADMIN_MENU_FLAG', 11 );
         $this->define( 'EB_SHOW_WHATS_NEW_NOTICE', 1 );
 
         //Table Name constants
@@ -273,7 +281,11 @@ final class Plugin
      */
     public function eb_custom_mines_uploads( $mimes )
     {
-        // Allow Plain text/JSON files.
+        $eb_settings          = get_option( 'eb_settings', [  ] );
+        $enableUnfilteredFile = ! empty( $eb_settings[ 'unfilteredFile' ] ) ? $eb_settings[ 'unfilteredFile' ] : 'false';
+        if ( $enableUnfilteredFile === 'true' ) {
+            $mimes[ 'svg' ] = 'image/svg+xml';
+        }
         $mimes[ 'txt' ]    = 'text/plain';
         $mimes[ 'json' ]   = 'application/json';
         $mimes[ 'lottie' ] = 'application/zip';
@@ -298,5 +310,104 @@ final class Plugin
         }
 
         return $data;
+    }
+
+    /**
+     * Filter pro blocks from rendering in frontend when pro plugin is not active
+     *
+     * @param string $block_content The block content.
+     * @param array  $block         The full block, including name and attributes.
+     * @return string
+     */
+    public function filter_pro_blocks_frontend( $block_content, $block )
+    {
+        // Only filter in frontend, not in admin or REST requests
+        if ( is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+            return $block_content;
+        }
+
+        // Only filter if pro plugin is not active
+        if ( defined( 'ESSENTIAL_BLOCKS_IS_PRO_ACTIVE' ) && ESSENTIAL_BLOCKS_IS_PRO_ACTIVE ) {
+            return $block_content;
+        }
+
+        // Check if this is a pro block
+        if ( isset( $block[ 'blockName' ] ) && $this->is_pro_block( $block[ 'blockName' ] ) ) {
+            // Return empty content to hide the block in frontend
+            return '';
+        }
+
+        return $block_content;
+    }
+
+    /**
+     * Check if a block is a pro block
+     *
+     * @param string $block_name The block name.
+     * @return bool
+     */
+    private function is_pro_block( $block_name )
+    {
+        // Check if block name contains 'essential-blocks/pro-'
+        if ( strpos( $block_name, 'essential-blocks/pro-' ) === 0 ) {
+            return true;
+        }
+
+        // Also check against the list of pro blocks from blocks.php
+        $all_blocks = self::$blocks ? self::$blocks->defaults( false, false ) : [  ];
+
+        foreach ( $all_blocks as $block_data ) {
+            if ( isset( $block_data[ 'is_pro' ] ) && $block_data[ 'is_pro' ] && isset( $block_data[ 'name' ] ) ) {
+                $pro_block_name = 'essential-blocks/' . $block_data[ 'name' ];
+                if ( $block_name === $pro_block_name ) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Sanitize SVG files before upload
+     *
+     * @param array $file The file being uploaded.
+     * @return array
+     */
+    public function eb_handle_sanitize_svg( $file )
+    {
+
+        // Check if the file type is SVG (case-insensitive)
+        if ( strtolower( $file[ 'type' ] ) === 'image/svg+xml' ) {
+            // Verify file extension is .svg (case-insensitive)
+            $path_parts = pathinfo( $file[ 'name' ] );
+            $extension  = isset( $path_parts[ 'extension' ] ) ? strtolower( $path_parts[ 'extension' ] ) : '';
+
+            if ( $extension !== 'svg' ) {
+                $file[ 'error' ] = __( 'File has incorrect extension for SVG type', 'essential-blocks' );
+                return $file;
+            }
+
+            // Get file contents
+            $contents = file_get_contents( $file[ 'tmp_name' ] );
+
+            // Check if content actually contains SVG structure
+            if ( stripos( $contents, '<svg' ) === false || stripos( $contents, '</svg>' ) === false ) {
+                $file[ 'error' ] = __( 'File is not a valid SVG document', 'essential-blocks' );
+                return $file;
+            }
+
+            // Use the sanitizer to clean and validate the SVG
+            $sanitizer = new SvgSanitizer();
+            $sanitized = $sanitizer->sanitize( $contents );
+
+            if ( ! $sanitized ) {
+                $file[ 'error' ] = __( 'Invalid or unsafe SVG file', 'essential-blocks' );
+            } else {
+                file_put_contents( $file[ 'tmp_name' ], $sanitized );
+            }
+        }
+
+        return $file;
     }
 }
