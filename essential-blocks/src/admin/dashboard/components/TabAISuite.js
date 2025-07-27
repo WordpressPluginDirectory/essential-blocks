@@ -11,11 +11,12 @@ import {
     saveEBSettingsData,
 } from "@essential-blocks/controls";
 
-export default function TabWriteAi() {
+export default function TabAISuite() {
     const [aiSettings, setAiSettings] = useState({
         writePageContent: true,
         writeRichtext: true,
         writeInputFields: true,
+        generateImage: true,
         postTypes: ['all'],
         apiKey: "",
         maxTokens: 1500,
@@ -65,6 +66,8 @@ export default function TabWriteAi() {
     useEffect(() => {
         fetchEBSettingsData("eb_write_with_ai").then((data) => {
             if (data) {
+                data = { ...aiSettings, ...data }
+
                 // Ensure postTypes is always an array
                 if (!Array.isArray(data.postTypes)) {
                     data.postTypes = ['all'];
@@ -84,7 +87,6 @@ export default function TabWriteAi() {
 
                     delete data.enableAi
                 }
-
 
                 setAiSettings({
                     ...data
@@ -106,9 +108,9 @@ export default function TabWriteAi() {
         }
     }, [filterablePostTypes]);
 
-    const allEnabled = aiSettings.writePageContent || aiSettings.writeRichtext || aiSettings.writeInputFields;
+    const allContentEnabled = aiSettings.writePageContent || aiSettings.writeRichtext || aiSettings.writeInputFields;
 
-    const onChangeAllSwitch = (value) => {
+    const onChangeAllContentSwitch = (value) => {
         setAiSettings({
             ...aiSettings,
             writePageContent: value,
@@ -139,6 +141,13 @@ export default function TabWriteAi() {
         setAiSettings({
             ...aiSettings,
             writeInputFields: value,
+        });
+    };
+
+    const onChangeGenerateImage = (value) => {
+        setAiSettings({
+            ...aiSettings,
+            generateImage: value,
         });
     };
 
@@ -217,15 +226,15 @@ export default function TabWriteAi() {
                                 </div>
                                 <div className="eb-col-6 eb-admin-checkbox-wrapper">
                                     <div className="eb-admin-input-wrapper eb-admin-checkbox-all eb-admin-checkbox eb-block-box">
-                                        <h4 className={allEnabled ? "enabled" : "disabled"}>
-                                            Enable or disable all
+                                        <h4 className={allContentEnabled ? "enabled" : "disabled"}>
+                                            Enable or disable all content features
                                         </h4>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                             <label className="eb-toggle-switch">
-                                                <label htmlFor="switch-all" className="eb-admin-checkbox-label">
+                                                <label htmlFor="switch-all-content" className="eb-admin-checkbox-label">
                                                     <Switch
-                                                        checked={allEnabled}
-                                                        onChange={onChangeAllSwitch}
+                                                        checked={allContentEnabled}
+                                                        onChange={onChangeAllContentSwitch}
                                                         defaultChecked={true}
                                                         disabled={false}
                                                         checkedChildren="ON"
@@ -307,8 +316,37 @@ export default function TabWriteAi() {
                                                     </label>
                                                 </label>
                                             </div>
+
+
                                         </div>
                                     )}
+                                </div>
+                            </div>
+
+                            {/* Generate AI Images */}
+                            <div className="eb-admin-inner-grid eb-col-12">
+                                <div className="eb-col-6">
+                                    <h2>{__("Generate AI Images", "essential-blocks")}</h2>
+                                    <p>{__("Toggle to enable or disable the AI image generation functionality inside the Gutenberg Editor.", "essential-blocks")}</p>
+                                </div>
+                                <div className="eb-col-6 eb-admin-checkbox-wrapper">
+                                    <div className="eb-admin-input-wrapper eb-admin-checkbox eb-block-box">
+                                        <h4 className={aiSettings?.generateImage ? "enabled" : "disabled"}>
+                                            Generate AI Images
+                                        </h4>
+                                        <label className="eb-toggle-switch">
+                                            <label htmlFor="switch-generate-images" className="eb-admin-checkbox-label">
+                                                <Switch
+                                                    checked={aiSettings?.generateImage}
+                                                    onChange={onChangeGenerateImage}
+                                                    defaultChecked={true}
+                                                    disabled={false}
+                                                    checkedChildren="ON"
+                                                    unCheckedChildren="OFF"
+                                                />
+                                            </label>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
 

@@ -18,6 +18,7 @@ class Scripts
     private $writeAIPageContent      = false;
     private $writeAIRichtextContent  = false;
     private $writeAIInputField       = false;
+    private $generateImage           = false;
     private $hasOpenAiApiKey         = false;
     private $writeAiPostTypes        = [ 'all' ];
     private $isEnableUnfilteredFiles = false;
@@ -29,7 +30,7 @@ class Scripts
         $eb_settings                   = get_option( 'eb_settings', [  ] );
         $this->isEnableFontAwesome     = ! empty( $eb_settings[ 'enableFontawesome' ] ) ? $eb_settings[ 'enableFontawesome' ] : 'true';
         $this->isEnableGoogleFont      = ! empty( $eb_settings[ 'googleFont' ] ) ? $eb_settings[ 'googleFont' ] : 'true';
-        $this->isEnableQuickToolbar    = ! empty( $eb_settings[ 'quickToolbar' ] ) ? $eb_settings[ 'quickToolbar' ] : 'true';
+        $this->isEnableQuickToolbar    = ! empty( $eb_settings[ 'quickToolbar' ] ) ? $eb_settings[ 'quickToolbar' ] : 'false';
         $this->isEnableUnfilteredFiles = ! empty( $eb_settings[ 'unfilteredFile' ] ) ? $eb_settings[ 'unfilteredFile' ] : 'false';
         add_action(
             'init',
@@ -44,6 +45,7 @@ class Scripts
         $this->writeAIPageContent     = isset( $eb_write_with_ai[ 'writePageContent' ] ) ? $eb_write_with_ai[ 'writePageContent' ] : true;
         $this->writeAIRichtextContent = isset( $eb_write_with_ai[ 'writeRichtext' ] ) ? $eb_write_with_ai[ 'writeRichtext' ] : true;
         $this->writeAIInputField      = isset( $eb_write_with_ai[ 'writeInputFields' ] ) ? $eb_write_with_ai[ 'writeInputFields' ] : true;
+        $this->generateImage          = isset( $eb_write_with_ai[ 'generateImage' ] ) ? $eb_write_with_ai[ 'generateImage' ] : true;
         $this->hasOpenAiApiKey        = isset( $eb_write_with_ai[ 'apiKey' ] ) && ! empty( $eb_write_with_ai[ 'apiKey' ] ) ? true : false;
 
         // Get post types for Write with AI
@@ -182,11 +184,12 @@ class Scripts
 
             //templately-installer
 
-            $show_pattern_library = get_option( ESSENTIAL_BLOCKS_HIDE_PATTERN_LIBRARY );
-            if ( ! $show_pattern_library ) {
-                wpdev_essential_blocks()->assets->register( 'templately-installer', 'admin/templately/templately.js' );
-                $editor_scripts_deps[  ] = 'essential-blocks-templately-installer';
-            }
+            //TODO: Hide for now on v5.5.2. Will make a plan later
+            // $show_pattern_library = get_option( ESSENTIAL_BLOCKS_HIDE_PATTERN_LIBRARY );
+            // if ( ! $show_pattern_library ) {
+            //     wpdev_essential_blocks()->assets->register( 'templately-installer', 'admin/templately/templately.js' );
+            //     $editor_scripts_deps[  ] = 'essential-blocks-templately-installer';
+            // }
 
             //Write with AI
             if ( $this->writeAIPageContent === true && $this->is_allowed_post_type_for_ai() ) {
@@ -623,6 +626,7 @@ class Scripts
                 'enableWriteAIPageContent' => $this->writeAIPageContent && $this->is_allowed_post_type_for_ai(),
                 'enableWriteAIRichtext'    => $this->writeAIRichtextContent,
                 'enableWriteAIInputField'  => $this->writeAIInputField,
+                'enableGenerateImage'      => $this->generateImage,
                 'hasOpenAiApiKey'          => $this->hasOpenAiApiKey,
                 'writeAiPostTypes'         => $this->writeAiPostTypes,
                 'globalColors'             => Helper::global_colors(),

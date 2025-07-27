@@ -9,10 +9,9 @@ import {
     generateBackgroundAttributes,
     generateBorderShadowAttributes,
 } from "@essential-blocks/controls";
+import { renderToString } from "@wordpress/element";
 
-import {
-    buttonPadding,
-} from "./constants/dimensionsConstants";
+import { buttonPadding } from "./constants/dimensionsConstants";
 import { infoBtnBg } from "./constants/backgroundsConstants";
 
 import { btnBdShd } from "./constants/borderShadowConstants";
@@ -24,67 +23,16 @@ import InfoboxContainer4 from "./components/infobox-save-depricated-4";
 import InfoboxContainer5 from "./components/infobox-save-depricated-5";
 import InfoboxContainer6 from "./components/infobox-save-depricated-6";
 import InfoboxContainer7 from "./components/infobox-save-depricated-7";
+import InfoboxContainer8 from "./components/infobox-save-depricated-8";
+import InfoboxContainer9 from "./components/infobox-save-depricated-9";
 import { omit } from "lodash";
 
 import attributes from "./attributes";
 
 const deprecated = [
+    // Deprecated v9: Changed from anchor wrapper to data attributes for clickable infobox
     {
-        attributes: omit({
-            ...attributes,
-            btnEffect: {
-                type: "string"
-            },
-            buttonText: {
-                type: "string",
-                default: "Learn More",
-            },
-            buttonTextColor: {
-                type: "string",
-                default: "var(--eb-global-button-text-color)",
-            },
-            buttonHvrTextColor: {
-                type: "string",
-                default: "var(--eb-global-button-text-color)",
-            },
-            infoboxLink: {
-                type: "string",
-            },
-            linkNewTab: {
-                type: "boolean",
-                default: false,
-            },
-
-            ...generateDimensionsAttributes(buttonPadding, {
-                top: 15,
-                bottom: 15,
-                right: 30,
-                left: 30,
-                isLinked: false,
-            }),
-            ...generateBorderShadowAttributes(btnBdShd, {
-                // bdrDefaults: {
-                // 	top: 10,
-                // 	bottom: 10,
-                // 	right: 10,
-                // 	left: 10,
-                // },
-                rdsDefaults: {
-                    top: 10,
-                    bottom: 10,
-                    right: 10,
-                    left: 10,
-                },
-                // noShadow: true,
-                // noBorder: true,
-            }),
-            ...generateBackgroundAttributes(infoBtnBg, {
-                defaultFillColor: "var(--eb-global-button-background-color)",
-                // defaultHovFillColor: "var(--eb-global-secondary-color)",
-                defaultBgGradient: "var(--eb-gradient-background-color)",
-                forButton: true
-            }),
-        }, ["enableTitle", 'showMedia', 'iconView', 'iconShape']),
+        attributes: { ...attributes },
         supports: {
             align: ["wide", "full"],
         },
@@ -111,6 +59,257 @@ const deprecated = [
                 subTitleTag,
                 btnEffect,
                 classHook,
+                showMedia,
+                enableTitle,
+                addBtnIcon,
+                btnIconPosition,
+                btnIcon,
+            } = attributes;
+
+            const requiredProps = {
+                selectedIcon,
+                infoboxIcon,
+                blockId,
+                number,
+                media,
+                imageUrl,
+                imageAlt,
+                enableSubTitle,
+                enableDescription,
+                infoboxLink,
+                linkNewTab,
+                enableButton,
+                isInfoClick,
+                buttonText,
+                title,
+                subTitle,
+                description,
+                titleTag,
+                subTitleTag,
+                btnEffect,
+                classHook,
+                showMedia,
+                enableTitle,
+                addBtnIcon,
+                btnIconPosition,
+                btnIcon,
+            };
+
+            const ReturnComponent = () => {
+                return (
+                    <BlockProps.Save attributes={attributes}>
+                        <InfoboxContainer9
+                            requiredProps={requiredProps}
+                            attributes={attributes}
+                        />
+                    </BlockProps.Save>
+                );
+            };
+
+            const html = renderToString(<ReturnComponent />);
+
+            return (
+                <ReturnComponent />
+            );
+        },
+    },
+    {
+        attributes: {
+            ...attributes,
+            imageUrl: {
+                source: "attribute",
+                selector: ".eb-infobox-image",
+                attribute: "src",
+                // default: "https://source.unsplash.com/user/cristofer",
+            },
+            imageAlt: {
+                type: "string",
+            },
+            imageId: {
+                type: "string",
+            },
+        },
+        isEligible: (attributes) => {
+            return attributes.imageUrl !== undefined;
+        },
+        supports: {
+            align: ["wide", "full"],
+        },
+        save: ({ attributes }) => {
+            const {
+                blockId,
+                selectedIcon,
+                infoboxIcon,
+                number = 0,
+                media,
+                imageUrl,
+                imageAlt,
+                enableSubTitle,
+                enableDescription,
+                infoboxLink,
+                linkNewTab,
+                enableButton,
+                isInfoClick,
+                buttonText,
+                title,
+                subTitle,
+                description,
+                titleTag,
+                subTitleTag,
+                btnEffect,
+                classHook,
+                showMedia,
+                enableTitle,
+                addBtnIcon,
+                btnIconPosition,
+                btnIcon,
+            } = attributes;
+
+            const requiredProps = {
+                selectedIcon,
+                infoboxIcon,
+                blockId,
+                number,
+                media,
+                imageUrl,
+                imageAlt,
+                enableSubTitle,
+                enableDescription,
+                infoboxLink,
+                linkNewTab,
+                enableButton,
+                isInfoClick,
+                buttonText,
+                title,
+                subTitle,
+                description,
+                titleTag,
+                subTitleTag,
+                btnEffect,
+                classHook,
+                showMedia,
+                enableTitle,
+                addBtnIcon,
+                btnIconPosition,
+                btnIcon,
+            };
+
+            return (
+                <BlockProps.Save attributes={attributes}>
+                    {isInfoClick ? (
+                        <a
+                            href={
+                                infoboxLink == undefined
+                                    ? ""
+                                    : sanitizeURL(infoboxLink)
+                            }
+                            target={linkNewTab ? "_blank" : "_self"}
+                            rel="noopener noreferrer"
+                            className="info-click-link info-wrap-link"
+                        >
+                            <InfoboxContainer8 requiredProps={requiredProps} />
+                        </a>
+                    ) : (
+                        <InfoboxContainer8
+                            requiredProps={requiredProps}
+                            attributes={attributes}
+                        />
+                    )}
+                </BlockProps.Save>
+            );
+        },
+    },
+    {
+        attributes: omit(
+            {
+                ...attributes,
+                btnEffect: {
+                    type: "string",
+                },
+                buttonText: {
+                    type: "string",
+                    default: "Learn More",
+                },
+                buttonTextColor: {
+                    type: "string",
+                    default: "var(--eb-global-button-text-color)",
+                },
+                buttonHvrTextColor: {
+                    type: "string",
+                    default: "var(--eb-global-button-text-color)",
+                },
+                infoboxLink: {
+                    type: "string",
+                },
+                linkNewTab: {
+                    type: "boolean",
+                    default: false,
+                },
+
+                ...generateDimensionsAttributes(buttonPadding, {
+                    top: 15,
+                    bottom: 15,
+                    right: 30,
+                    left: 30,
+                    isLinked: false,
+                }),
+                ...generateBorderShadowAttributes(btnBdShd, {
+                    // bdrDefaults: {
+                    // 	top: 10,
+                    // 	bottom: 10,
+                    // 	right: 10,
+                    // 	left: 10,
+                    // },
+                    rdsDefaults: {
+                        top: 10,
+                        bottom: 10,
+                        right: 10,
+                        left: 10,
+                    },
+                    // noShadow: true,
+                    // noBorder: true,
+                }),
+                ...generateBackgroundAttributes(infoBtnBg, {
+                    defaultFillColor:
+                        "var(--eb-global-button-background-color)",
+                    // defaultHovFillColor: "var(--eb-global-secondary-color)",
+                    defaultBgGradient: "var(--eb-gradient-background-color)",
+                    forButton: true,
+                }),
+            },
+            ["enableTitle", "showMedia", "iconView", "iconShape"],
+        ),
+        supports: {
+            align: ["wide", "full"],
+        },
+        save: ({ attributes }) => {
+            const {
+                blockId,
+                selectedIcon,
+                infoboxIcon,
+                number = 0,
+                media,
+                imageUrl,
+                imageAlt,
+                enableSubTitle,
+                enableDescription,
+                infoboxLink,
+                linkNewTab,
+                enableButton,
+                isInfoClick,
+                buttonText,
+                title,
+                subTitle,
+                description,
+                titleTag,
+                subTitleTag,
+                btnEffect,
+                classHook,
+                showMedia,
+                enableTitle,
+                addBtnIcon,
+                btnIconPosition,
+                btnIcon,
             } = attributes;
 
             const requiredProps = {
@@ -141,7 +340,11 @@ const deprecated = [
                 <BlockProps.Save attributes={attributes}>
                     {isInfoClick ? (
                         <a
-                            href={infoboxLink == undefined ? '' : sanitizeURL(infoboxLink)}
+                            href={
+                                infoboxLink == undefined
+                                    ? ""
+                                    : sanitizeURL(infoboxLink)
+                            }
                             target={linkNewTab ? "_blank" : "_self"}
                             rel="noopener noreferrer"
                             className="info-click-link info-wrap-link"
@@ -152,7 +355,6 @@ const deprecated = [
                         <InfoboxContainer7 requiredProps={requiredProps} />
                     )}
                 </BlockProps.Save>
-
             );
         },
     },
@@ -214,7 +416,7 @@ const deprecated = [
                 <div {...useBlockProps.save()}>
                     {isInfoClick ? (
                         <a
-                            href={infoboxLink == undefined ? '' : infoboxLink}
+                            href={infoboxLink == undefined ? "" : infoboxLink}
                             target={linkNewTab ? "_blank" : "_self"}
                             rel="noopener noreferrer"
                             className="info-click-link info-wrap-link"

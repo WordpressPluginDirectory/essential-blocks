@@ -55,6 +55,8 @@ export default function Style(props) {
         let columnGap = columnNumber;
         if (columnGap > 1) {
             columnGap = columnNumber - 1;
+        } else {
+            columnGap = 0;
         }
         return (gap * columnGap) / columnNumber;
     }
@@ -344,6 +346,8 @@ export default function Style(props) {
                 editorTabStyles={tabAllStylesEditor}
                 editorMobileStyles={mobileAllStylesEditor}
                 blockName={name}
+                columnGap={columnGap}
+                columnNumber={columnNumber}
             />
         </>
     );
