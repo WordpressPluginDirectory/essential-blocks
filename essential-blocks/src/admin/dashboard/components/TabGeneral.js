@@ -277,17 +277,18 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 5.6.2", "essential-blocks")}
+                                    {__("Version: 5.6.4", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("20/08/2025", "essential-blocks")}
+                                        {__("14/09/2025", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Minor bug fixes and improvements",
+                                            "Few minor bug fixes & improvements",
                                             "essential-blocks"
                                         )}
+
                                     </li>
                                 </ul>
 

@@ -36,7 +36,7 @@ class Admin
         // Remove OLD notice from 1.0.0 (if other WPDeveloper plugin has notice)
         NoticeRemover::get_instance( '1.0.0' );
 
-        add_action( 'admin_init', [ $this, 'notices' ] );
+        add_action( 'init', [ $this, 'notices' ] );
 
         add_action( 'admin_menu', [ $this, 'admin_menu' ] );
 
@@ -255,31 +255,31 @@ class Admin
         );
 
         /**
-         * Occasional Sale
-         * Current: 2025 Early Bird
+         * Milestone Sale
+         * Current: 200K Milestone LTD Sale Notice
          */
-        $occasional_sale_message = '<p class="eb_notice_content" style="margin-top: 0; margin-bottom: 10px;">🎁 <strong>SAVE 25% now</strong> to unlock 60+ advanced blocks & 5500+ ready templates to design websites faster in 2025.</p>
-        <a class="button button-primary" href="https://essential-blocks.com/holiday24-admin-notice" target="_blank"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        $milestone_sale_message = '<p class="eb_notice_content" style="margin-top: 0; margin-bottom: 10px;"><strong>Best Time to Grab Essential Blocks LTD: $100 Off!</strong> Join in celebrating new milestone of Essential Blocks; powering up <strong>200k+</strong> happy users 🎉</p>
+        <a class="button button-primary" href="https://essential-blocks.com/EB200K-admin-notice" target="_blank"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M14.0688 9.24424L14.2136 7.82369C14.2908 7.06574 14.3418 6.56525 14.3018 6.24991L14.3158 6.25C14.9698 6.25 15.5 5.69036 15.5 5C15.5 4.30964 14.9698 3.75 14.3158 3.75C13.6618 3.75 13.1316 4.30964 13.1316 5C13.1316 5.31222 13.24 5.5977 13.4193 5.81677C13.1619 5.98447 12.8254 6.33832 12.3188 6.87093L12.3188 6.87096L12.3188 6.87096C11.9286 7.28129 11.7334 7.48645 11.5158 7.51822C11.3952 7.53583 11.2723 7.51773 11.1609 7.46596C10.9599 7.37254 10.8259 7.1189 10.5578 6.61163L9.14509 3.93783C8.97975 3.6249 8.84136 3.36298 8.71658 3.15221C9.22844 2.87656 9.57895 2.31482 9.57895 1.66667C9.57895 0.746192 8.87203 0 8 0C7.12797 0 6.42105 0.746192 6.42105 1.66667C6.42105 2.31482 6.77156 2.87656 7.28342 3.15221C7.15864 3.36299 7.02027 3.62487 6.85491 3.93783L5.44215 6.61163C5.17413 7.1189 5.04011 7.37254 4.83911 7.46596C4.72774 7.51773 4.60485 7.53583 4.48424 7.51822C4.26656 7.48645 4.07143 7.28129 3.68118 6.87096C3.17463 6.33834 2.83807 5.98447 2.58068 5.81677C2.75998 5.5977 2.86842 5.31222 2.86842 5C2.86842 4.30964 2.33823 3.75 1.68421 3.75C1.03019 3.75 0.5 4.30964 0.5 5C0.5 5.69036 1.03019 6.25 1.68421 6.25L1.69819 6.24991C1.65817 6.56525 1.70917 7.06574 1.7864 7.82368L1.93116 9.24424C2.01151 10.0328 2.07833 10.783 2.16016 11.4583H13.8398C13.9217 10.783 13.9885 10.0328 14.0688 9.24424Z" fill="white"/>
 <path d="M7.1411 15H8.8589C11.0978 15 12.2172 15 12.9642 14.2943C13.2902 13.9863 13.4966 13.431 13.6456 12.7083H2.35444C2.50341 13.431 2.70984 13.9863 3.03585 14.2943C3.78276 15 4.90221 15 7.1411 15Z" fill="white"/>
-</svg> GET PRO Lifetime Access</a>
+</svg> Grab the Deal</a>
         <button data-dismiss="true" class="dismiss-btn button button-link">No, I\'ll Pay Full Price Later</button>';
-        $occasional_sale_notice = [
+        $milestone_sale_notice = [
             'thumbnail' => ESSENTIAL_BLOCKS_URL . 'assets/images/eb-logo-full.svg',
-            'html'      => $occasional_sale_message
+            'html'      => $milestone_sale_message
          ];
 
-        //Occasional Sale Notice Add
+        //Milestone Sale Notice Add
         $notices->add(
-            'occasional_sale',
-            $occasional_sale_notice,
+            'milestone_sale',
+            $milestone_sale_notice,
             [
                 'start'       => $notices->time(),
-                'expire'      => strtotime( '11:59:59pm 10th January, 2025' ),
+                'expire'      => strtotime( '11:59:59pm 30th September, 2025' ),
                 'classes'     => 'eb-notice put-dismiss-notice',
                 'dismissible' => true,
                 'refresh'     => ESSENTIAL_BLOCKS_VERSION,
-                'do_action'   => 'eb_occasional_sale_campaign',
+                'do_action'   => 'eb_milestone_sale_campaign',
                 'display_if'  => ! ESSENTIAL_BLOCKS_IS_PRO_ACTIVE
              ]
         );
@@ -845,8 +845,6 @@ class Admin
             // Generate image using OpenAI
             $response = $openai->generate_image( $prompt, $model, $size, $quality, $style, 'writePageContent', $background, $output_format, $output_compression, $image_count );
 
-            error_log( 'Admin.php:' . print_r( $response, true ) );
-
             if ( $response[ 'success' ] ) {
                 wp_send_json_success( [
                     'images' => $response[ 'images' ],
@@ -1046,30 +1044,12 @@ class Admin
      */
     public function promotion_message_on_admin_screen()
     {
-        // Define the minimum required Pro version to override free message
-        $min_pro_version = '2.0.5';
-        $use_pro_message = false;
-
-        // Check if Pro is active and meets version requirement
-        if ( defined( 'ESSENTIAL_BLOCKS_IS_PRO_ACTIVE' ) && ESSENTIAL_BLOCKS_IS_PRO_ACTIVE ) {
-            if ( defined( 'ESSENTIAL_BLOCKS_PRO_VERSION' ) ) {
-                if ( version_compare( ESSENTIAL_BLOCKS_PRO_VERSION, $min_pro_version, '>=' ) ) {
-                    $use_pro_message = true;
-                }
-            }
-        }
-
         $changelog_url = esc_url( 'https://essential-blocks.com/changelog/' );
 
         $message_template = __(
-            "<p><i>📣</i> Introducing Essential Blocks Pro <strong>v2.3.0</strong> with powerful <strong>EB Mega Menu</strong> support! Create stunning, multi-column mega menus directly in the block editor, featuring sections, icons, images, and dynamic content for a responsive and accessible navigation across devices. For more details, check out this <strong><a target='_blank' href='%s'>changelog</a></strong>.</p>",
+            "<p><i>📣</i> Introducing Loop Builder in Essential Blocks Pro <strong>v2.4.0</strong> - Effortlessly design dynamic post and content loops with the brand-new Loop Builder block for more flexible layouts.! For more details, check out this <strong><a target='_blank' href='%s'>changelog</a></strong>.</p>",
             "essential-blocks"
         );
-
-        // Allow Pro to override message
-        // if ( $use_pro_message ) {
-        //     $message_template = apply_filters( 'eb_promotion_message_on_admin_screen', $message_template );
-        // }
 
         $message = sprintf( $message_template, $changelog_url );
 
