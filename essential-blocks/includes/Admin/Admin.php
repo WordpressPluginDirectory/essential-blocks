@@ -582,7 +582,7 @@ class Admin
         if ( ! isset( $_POST[ 'admin_nonce' ] ) || ! wp_verify_nonce( sanitize_key( $_POST[ 'admin_nonce' ] ), 'admin-nonce' ) ) {
             wp_send_json_error( __( 'Nonce Error', 'essential-blocks' ) );
         }
-        if ( ! current_user_can( 'edit_posts' ) ) {
+        if ( ! current_user_can( 'activate_plugins' ) ) {
             wp_send_json_error( __( 'You are not authorized to save this!', 'essential-blocks' ) );
         }
 
@@ -885,14 +885,28 @@ class Admin
 
             // Handle URL format
             if ( $image_url ) {
-                // Download the image from OpenAI URL
-                $image_data = wp_remote_get( $image_url, [
-                    'timeout' => 60
+                // Download the image from validated URL
+                $image_data = wp_safe_remote_get( $image_url, [
+                    'timeout'     => 30,
+                    'redirection' => 3,
+                    'user-agent'  => 'Essential Blocks/' . ESSENTIAL_BLOCKS_VERSION,
+                    'headers'     => [
+                        'Accept' => 'image/*'
+                     ]
                  ] );
 
                 if ( is_wp_error( $image_data ) ) {
                     wp_send_json_error( [
-                        'message' => __( 'Failed to download image from OpenAI.', 'essential-blocks' )
+                        'message' => __( 'Failed to download image from URL.', 'essential-blocks' )
+                     ] );
+                    return;
+                }
+
+                // Validate response
+                $response_code = wp_remote_retrieve_response_code( $image_data );
+                if ( $response_code !== 200 ) {
+                    wp_send_json_error( [
+                        'message' => __( 'Invalid response from image URL.', 'essential-blocks' )
                      ] );
                     return;
                 }
@@ -919,9 +933,39 @@ class Admin
                 return;
             }
 
+            // Security: Validate image content and size
+            if ( ! $this->is_valid_image_content( $image_body ) ) {
+                wp_send_json_error( [
+                    'message' => __( 'Invalid image content provided.', 'essential-blocks' )
+                 ] );
+                return;
+            }
+
             // Detect image format and set appropriate extension and MIME type
             $image_info = getimagesizefromstring( $image_body );
-            $mime_type  = $image_info ? $image_info[ 'mime' ] : 'image/png';
+            if ( ! $image_info ) {
+                wp_send_json_error( [
+                    'message' => __( 'Unable to determine image format.', 'essential-blocks' )
+                 ] );
+                return;
+            }
+
+            $mime_type = $image_info[ 'mime' ];
+
+            // Security: Only allow specific image MIME types
+            $allowed_mime_types = [
+                'image/jpeg',
+                'image/png',
+                'image/webp',
+                'image/gif'
+             ];
+
+            if ( ! in_array( $mime_type, $allowed_mime_types, true ) ) {
+                wp_send_json_error( [
+                    'message' => __( 'Unsupported image format.', 'essential-blocks' )
+                 ] );
+                return;
+            }
 
             // Determine file extension based on MIME type
             $extension = 'png'; // default
@@ -996,6 +1040,58 @@ class Admin
     }
 
     /**
+     * Validate image content for security
+     *
+     * @param string $image_data The image data to validate
+     * @return bool True if valid, false otherwise
+     */
+    private function is_valid_image_content( $image_data )
+    {
+        if ( empty( $image_data ) ) {
+            return false;
+        }
+
+        // Check file size (max 10MB)
+        $max_size = 10 * 1024 * 1024; // 10MB
+        if ( strlen( $image_data ) > $max_size ) {
+            return false;
+        }
+
+        // Validate image using getimagesizefromstring
+        $image_info = getimagesizefromstring( $image_data );
+        if ( ! $image_info ) {
+            return false;
+        }
+
+        // Check image dimensions (reasonable limits)
+        $max_width  = 4096;
+        $max_height = 4096;
+        if ( $image_info[ 0 ] > $max_width || $image_info[ 1 ] > $max_height ) {
+            return false;
+        }
+
+        // Additional security: Check for suspicious content patterns
+        // Look for common file signatures that shouldn't be in images
+        $suspicious_patterns = [
+            '<?php', // PHP code
+            '<script', // JavaScript
+            'javascript:', // JavaScript protocol
+            'data:text/', // Text data URLs
+            '<html', // HTML content
+            '#!/bin/' // Shell scripts
+         ];
+
+        $data_start = substr( $image_data, 0, 1024 ); // Check first 1KB
+        foreach ( $suspicious_patterns as $pattern ) {
+            if ( stripos( $data_start, $pattern ) !== false ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * update menu notice flag
      */
     public function eb_show_admin_menu_notice()
@@ -1047,7 +1143,7 @@ class Admin
         $changelog_url = esc_url( 'https://essential-blocks.com/changelog/' );
 
         $message_template = __(
-            "<p><i>📣</i> Introducing Loop Builder in Essential Blocks Pro <strong>v2.4.0</strong> - Effortlessly design dynamic post and content loops with the brand-new Loop Builder block for more flexible layouts.! For more details, check out this <strong><a target='_blank' href='%s'>changelog</a></strong>.</p>",
+            "<p><i>📣</i> Introducing Liquid Glass Effect in Essential Blocks <strong>v5.7.0</strong> - Transform your designs with stunning liquid glass visual effects and advanced styling options! For more details, check out this <strong><a target='_blank' href='%s'>changelog</a></strong>.</p>",
             "essential-blocks"
         );
 
