@@ -117,6 +117,10 @@ const attributes = {
         type: "number",
         default: 0,
     },
+    enableLazyLoad: {
+        type: "boolean",
+        default: true,
+    },
     titleColor: {
         type: "string",
         default: "var(--eb-global-heading-color)",

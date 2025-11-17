@@ -303,54 +303,28 @@ const WriteAIButton = () => {
         // Add additional instruction to not include HTML or header tags
         const modifiedPrompt = prompt + "\n\nIMPORTANT: Do not include any <html> or <head> or <body> tag in your response. Provide content only for body. Do not add \\n for line breaks. Our system will handle the formatting.";
 
-        // AJAX call to OpenAI API
+        // Start AI job using the improved approach
         let data = new FormData();
-        data.append("action", "write_with_ai");
+        data.append("action", "start_ai_job");
         data.append("admin_nonce", EssentialBlocksLocalize.admin_nonce);
-        data.append("prompt", modifiedPrompt); // Use the modified prompt with additional instructions
-        data.append("overwrite", overwriteContent);
+        data.append("job_type", "content");
+        data.append("prompt", modifiedPrompt);
         data.append("content_for", "writePageContent");
-
 
         fetch(EssentialBlocksLocalize?.ajax_url, {
             method: "POST",
             body: data,
-        }) // wrapped
-            .then((res) => {
-                return res.json();
-            })
+        })
+            .then((res) => res.json())
             .then((response) => {
-                setLoading(false);
-
                 if (response.success) {
-                    // Insert the generated content into the editor
-                    const content = response.data.content;
-
-                    // Get the block editor dispatch
-                    const blockEditor = dispatch("core/block-editor");
-
-                    // If overwrite is enabled, remove all existing blocks first
-                    if (overwriteContent) {
-                        const { getBlocks } = select("core/block-editor");
-                        const allBlocks = getBlocks();
-
-                        if (allBlocks.length > 0) {
-                            blockEditor.removeBlocks(allBlocks.map(block => block.clientId));
-                        }
-                    }
-
-                    // Parse content to identify paragraphs and headings
-                    const blocks = parseContentIntoBlocks(content);
-
-                    // Insert the blocks
-                    blockEditor.insertBlocks(blocks);
-
-                    // Close the popover
-                    setIsVisible(false);
+                    // Start polling for job completion
+                    pollJobStatus(response.data.job_id);
                 } else {
+                    setLoading(false);
                     setError(true);
-                    console.error("Error generating content:", response.data.message);
-                    alert(__("Error generating content. Please try again.", "essential-blocks"));
+                    console.error("Error starting AI job:", response.data?.message);
+                    alert(__("Error starting content generation. Please try again.", "essential-blocks"));
                 }
             })
             .catch((error) => {
@@ -360,6 +334,101 @@ const WriteAIButton = () => {
                 alert(__("Error connecting to the server. Please try again.", "essential-blocks"));
             });
     }
+
+    /**
+     * Poll job status until completion
+     */
+    const pollJobStatus = (jobId) => {
+        const maxPollingTime = 3 * 60 * 1000; // 3 minutes
+        const pollingInterval = 3000; // 3 seconds
+        const startTime = Date.now();
+
+        const poll = () => {
+            // Check if we've exceeded the maximum polling time
+            if (Date.now() - startTime > maxPollingTime) {
+                setLoading(false);
+                setError(true);
+                alert(__("Content generation timed out. Please try again.", "essential-blocks"));
+                return;
+            }
+
+            // Make AJAX request to check job status
+            let data = new FormData();
+            data.append("action", "check_ai_job_status");
+            data.append("admin_nonce", EssentialBlocksLocalize.admin_nonce);
+            data.append("job_id", jobId);
+
+            fetch(EssentialBlocksLocalize?.ajax_url, {
+                method: "POST",
+                body: data,
+            })
+                .then((res) => res.json())
+                .then((response) => {
+                    if (response.success) {
+                        const status = response.data.status;
+
+                        if (status === 'completed') {
+                            setLoading(false);
+
+                            if (response.data.result && response.data.result.success) {
+                                // Insert the generated content into the editor
+                                const content = response.data.result.content;
+
+                                // Get the block editor dispatch
+                                const blockEditor = dispatch("core/block-editor");
+
+                                // If overwrite is enabled, remove all existing blocks first
+                                if (overwriteContent) {
+                                    const { getBlocks } = select("core/block-editor");
+                                    const allBlocks = getBlocks();
+
+                                    if (allBlocks.length > 0) {
+                                        blockEditor.removeBlocks(allBlocks.map(block => block.clientId));
+                                    }
+                                }
+
+                                // Parse content to identify paragraphs and headings
+                                const blocks = parseContentIntoBlocks(content);
+
+                                // Insert the blocks
+                                blockEditor.insertBlocks(blocks);
+
+                                // Close the popover
+                                setIsVisible(false);
+                            } else {
+                                setError(true);
+                                const errorMessage = response.data.result?.message || __("Unknown error occurred", "essential-blocks");
+                                console.error("Error in AI generation result:", errorMessage);
+                                alert(__("Error generating content. Please try again.", "essential-blocks"));
+                            }
+                        } else if (status === 'failed' || status === 'expired') {
+                            setLoading(false);
+                            setError(true);
+                            const errorMessage = response.data.error || __("Content generation failed", "essential-blocks");
+                            console.error("AI job failed:", errorMessage);
+                            alert(__("Error generating content. Please try again.", "essential-blocks"));
+                        } else if (status === 'pending' || status === 'processing') {
+                            // Continue polling
+                            setTimeout(poll, pollingInterval);
+                        }
+                    } else {
+                        setLoading(false);
+                        setError(true);
+                        console.error("Error checking job status:", response.data?.message);
+                        alert(__("Error checking generation status. Please try again.", "essential-blocks"));
+                    }
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    setError(true);
+                    console.error("AJAX Error during polling:", error);
+                    alert(__("Error connecting to the server. Please try again.", "essential-blocks"));
+                });
+        };
+
+        // Start polling
+        poll();
+    };
 
     const isBlank = select('core/block-editor').getBlocks().length === 0 ? true : false;
 

@@ -38,6 +38,11 @@ final class StyleHandler
      */
     private $gp_ids = [];
 
+    /**
+     * store astra addon advanced hooks id
+     */
+    private $astra_hook_ids = [];
+
     public static function init()
     {
         if (null === self::$instance) {
@@ -71,10 +76,13 @@ final class StyleHandler
         add_action('wp_footer', [$this, 'eb_add_widget_css_footer']);
 
         //Enqueue Styles based on Block theme or not
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend_assets']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend_assets'], 25);
 
         //For Templately templates
         add_action('templately_printed_location', [$this, 'templately_templates'], 10, 3);
+
+        // Hook into Astra Addon advanced hooks processing
+        add_action('wp_enqueue_scripts', [$this, 'astra_advanced_hooks_css_generation'], 15);
     }
 
     /**
@@ -184,6 +192,15 @@ final class StyleHandler
                             substr(md5(microtime(true)), 0, 10)
                         );
                     }
+                }
+            }
+        }
+
+        // Astra Addon Advanced Hooks CSS files are now handled by astra_advanced_hooks_css_generation() method
+        if (in_array('astra-addon/astra-addon.php', apply_filters('active_plugins', get_option('active_plugins'))) && defined('ASTRA_ADVANCED_HOOKS_POST_TYPE')) {
+            foreach ($this->astra_hook_ids as $element_id) {
+                if (file_exists($this->style_dir . $this->get_eb_filename($element_id))) {
+                    wp_enqueue_style('eb-block-style-' . $element_id, $this->style_url . $this->get_eb_filename($element_id), $deps, substr(md5(microtime(true)), 0, 10));
                 }
             }
         }
@@ -706,6 +723,42 @@ final class StyleHandler
         return $post_id;
     }
 
+    /**
+     * Generate CSS for Astra Addon Advanced Hooks
+     *
+     * @since 5.0.8
+     */
+    public function astra_advanced_hooks_css_generation()
+    {
+        // Check if Astra Addon is active and advanced hooks are available
+        if (
+            !in_array('astra-addon/astra-addon.php', apply_filters('active_plugins', get_option('active_plugins'))) ||
+            !defined('ASTRA_ADVANCED_HOOKS_POST_TYPE') ||
+            !class_exists('Astra_Target_Rules_Fields')
+        ) {
+            return;
+        }
+
+        // Use the same logic as Astra Addon to get active advanced hooks
+        $option = array(
+            'location'  => 'ast-advanced-hook-location',
+            'exclusion' => 'ast-advanced-hook-exclusion',
+            'users'     => 'ast-advanced-hook-users',
+        );
+
+        $result = \Astra_Target_Rules_Fields::get_instance()->get_posts_by_conditions(ASTRA_ADVANCED_HOOKS_POST_TYPE, $option);
+
+        foreach ($result as $post_id => $post_data) {
+            if (!empty($post_id)) {
+                $this->astra_hook_ids[] = $post_id;
+                $post = get_post($post_id);
+                if ($post && !empty($post->post_content)) {
+                    $parsed_content = parse_blocks($post->post_content);
+                    $this->write_css_from_content($parsed_content, $post_id, $post->post_type);
+                }
+            }
+        }
+    }
     /**
      * Function for generate Styles for Templately Theme Builder Templates
      * @since 5.0.8

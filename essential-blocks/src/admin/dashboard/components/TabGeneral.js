@@ -277,36 +277,64 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 5.7.3", "essential-blocks")}
+                                    {__("Version: 5.8.0", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("23/10/2025", "essential-blocks")}
+                                        {__("17/11/2025", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Video | Video ratio issue",
+                                            "Added: New Block | Flex Container",
                                             "essential-blocks"
                                         )}
 
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Post Grid | Pagination conflict with Filter",
+                                            "Added: Block Defaults for all missing blocks",
                                             "essential-blocks"
                                         )}
 
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Slider | JQuery dependency issue",
+                                            "Fixed: Popup | Exit Intent not working in Firefox and Safari",
                                             "essential-blocks"
                                         )}
 
                                     </li>
                                     <li>
                                         {__(
-                                            "Improved: Security enhancements",
+                                            "Fixed: Advanced Heading | Line height issue",
+                                            "essential-blocks"
+                                        )}
+
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Social Share | Changing icon hides the icon",
+                                            "essential-blocks"
+                                        )}
+
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Default Typography not inherited from Theme",
+                                            "essential-blocks"
+                                        )}
+
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Style not generating in Astra Theme Builder",
+                                            "essential-blocks"
+                                        )}
+
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Compatibility issue with WPFunnel Pro",
                                             "essential-blocks"
                                         )}
 

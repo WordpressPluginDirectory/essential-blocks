@@ -6,7 +6,7 @@ import { __ } from "@wordpress/i18n";
 import { Button, Popover } from "@wordpress/components";
 
 
-import { LoadAssets } from '../helpers/LoadAssets';
+import { LoadAssets } from '../../helpers/LoadAssets';
 
 import {
     installPlugin

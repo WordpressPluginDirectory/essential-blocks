@@ -206,6 +206,17 @@ export default function Style(props) {
         attributes,
     });
 
+    // range controller Slider Height
+    const {
+        rangeStylesDesktop: sliderMinHeightDesktop,
+        rangeStylesTab: sliderMinHeightTab,
+        rangeStylesMobile: sliderMinHeightMobile,
+    } = generateResponsiveRangeStyles({
+        controlName: CUSTOM_HEIGHT,
+        property: "min-height",
+        attributes,
+    });
+
     // range controller Slides to Show
     const {
         rangeStylesDesktop: slideToShowDesktop,
@@ -423,7 +434,10 @@ export default function Style(props) {
 			text-align: ${textAlign};
 			align-items: ${verticalAlign};
 		}
-		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
+        .eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item {
+			${isCustomHeight ? sliderMinHeightDesktop : ""}
+		}
+		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img:not(.slick-loading) {
 			${isCustomHeight ? sliderHeightDesktop : ""}
             ${sliderBDShadowDesktop}
 		}
@@ -480,7 +494,10 @@ export default function Style(props) {
 		.eb-slider-wrapper.${blockId} .slick-slide > * {
 			${slidesGapTab}
 		}
-		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
+        .eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item {
+			${isCustomHeight ? sliderMinHeightTab : ""}
+		}
+		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img:not(.slick-loading) {
 			${isCustomHeight &&
             (sliderType === "image" ||
                 (sliderType === "content" &&
@@ -528,7 +545,10 @@ export default function Style(props) {
 		.eb-slider-wrapper.${blockId} .slick-slide > * {
 			${slidesGapMobile}
 		}
-		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
+        .eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item {
+			${isCustomHeight ? sliderMinHeightMobile : ""}
+		}
+		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img:not(.slick-loading) {
 			${isCustomHeight &&
             (sliderType === "image" ||
                 (sliderType === "content" &&
