@@ -344,6 +344,7 @@ const attributes = {
     // range controller Slider Height
     ...generateResponsiveRangeAttributes(CUSTOM_HEIGHT, {
         defaultRange: 400,
+        defaultUnit: "px",
     }),
 
     // range controller Dots Gap

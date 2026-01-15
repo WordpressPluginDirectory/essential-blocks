@@ -2,11 +2,11 @@
     if ( ! defined( 'ABSPATH' ) ) {
         exit;
     }
-    $title       = esc_html__( 'New Block - Flex Container', 'essential-blocks' );
-    $description = esc_html__( 'Create flexible layouts with CSS Flexbox properties for responsive design', 'essential-blocks' );
+    $title       = esc_html__( 'New Block - Timeline', 'essential-blocks' );
+    $description = esc_html__( 'Create visually engaging and fully customizable content timelines in WordPress to showcase your stories.', 'essential-blocks' );
     $learn_more  = esc_html__( 'Learn More', 'essential-blocks' );
     $dismiss     = esc_html__( 'Dismiss', 'essential-blocks' );
-    $doc_url     = esc_url( 'https://essential-blocks.com/demo/flex-container/' );
+    $doc_url     = esc_url( 'https://essential-blocks.com/demo/timeline' );
 ?>
 
 <script type="text/javascript">

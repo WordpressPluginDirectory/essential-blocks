@@ -277,64 +277,43 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 5.8.0", "essential-blocks")}
+                                    {__("Version: 5.9.2", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("17/11/2025", "essential-blocks")}
+                                        {__("15/12/2025", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Added: New Block | Flex Container",
+                                            "Added: New Block | Timeline",
                                             "essential-blocks"
                                         )}
 
                                     </li>
                                     <li>
                                         {__(
-                                            "Added: Block Defaults for all missing blocks",
+                                            "Improved: Typing Text | Dynamic Tag Support",
                                             "essential-blocks"
                                         )}
 
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Popup | Exit Intent not working in Firefox and Safari",
+                                            "Fixed: Advanced Navigation | Submenu not displaying properly in frontend",
                                             "essential-blocks"
                                         )}
 
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Heading | Line height issue",
+                                            "Fixed: Advanced Tabs | Vertical mode conflict in Inner Blocks",
                                             "essential-blocks"
                                         )}
 
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Social Share | Changing icon hides the icon",
-                                            "essential-blocks"
-                                        )}
-
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Default Typography not inherited from Theme",
-                                            "essential-blocks"
-                                        )}
-
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Style not generating in Astra Theme Builder",
-                                            "essential-blocks"
-                                        )}
-
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Compatibility issue with WPFunnel Pro",
+                                            "Fixed: Flex Container | Height not working properly",
                                             "essential-blocks"
                                         )}
 

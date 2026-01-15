@@ -221,7 +221,19 @@ export default function Style(props) {
             ${backgroundStylesDesktop}
             ${bdShadowStyesDesktop}
         }
-        .eb-flex-container.${blockId}:not(.editor) {
+        .eb-flex-container.${blockId}:hover {
+            ${hoverBackgroundStylesDesktop}
+            ${bdShadowStylesHoverDesktop}
+        }
+        .eb-flex-container.${blockId}:before {
+            ${overlayStylesDesktop}
+            transition: ${ovlTransitionStyle};
+        }
+        .eb-flex-container.${blockId}:hover:before {
+            ${hoverOverlayStylesDesktop}
+        }
+
+        .eb-flex-container.${blockId}:not(.editor) >.eb-flex-container-inner{
             ${flexDirectionDesktop || "flex-direction: row;"}
             ${justifyContentDesktop || "justify-content: flex-start;"}
             ${alignItemsDesktop || "align-items: stretch;"}
@@ -230,6 +242,7 @@ export default function Style(props) {
             ${columnGapDesktop}
             overflow: ${overflow};
             ${contentHeightDesktop}
+            ${contentWidth === "boxed" ? `${contentWidthDesktop}` : ""}
         }
 
         .eb-flex-container.${blockId} > .block-editor-inner-blocks > .block-editor-block-list__layout {
@@ -242,19 +255,9 @@ export default function Style(props) {
             ${contentWidth === "boxed" ? `${contentWidthDesktop}` : ""}
             ${contentHeightDesktop}
             overflow: ${overflow};
+            margin: 0 auto;
         }
 
-        .eb-flex-container-block.${blockId}:hover {
-            ${hoverBackgroundStylesDesktop}
-            ${bdShadowStylesHoverDesktop}
-        }
-        .eb-flex-container-block.${blockId}:before {
-            ${overlayStylesDesktop}
-            transition: ${ovlTransitionStyle};
-        }
-        .eb-flex-container-block.${blockId}:hover:before {
-            ${hoverOverlayStylesDesktop}
-        }
     `;
 
     // all css styles for Tab in strings ⬇
@@ -271,7 +274,18 @@ export default function Style(props) {
             ${backgroundStylesTab}
             ${bdShadowStyesTab}
         }
-        .eb-flex-container.${blockId}:not(.editor) {
+        .eb-flex-container.${blockId}:hover {
+            ${hoverBackgroundStylesTab}
+            ${bdShadowStylesHoverTab}
+        }
+        .eb-flex-container.${blockId}:before {
+            ${overlayStylesTab}
+        }
+        .eb-flex-container.${blockId}:hover:before {
+            ${hoverOverlayStylesTab}
+        }
+
+        .eb-flex-container.${blockId}:not(.editor) >.eb-flex-container-inner{
             ${flexDirectionTab || flexDirectionDesktop || "flex-direction: row;"}
             justify-content: ${TABjustifyContent || justifyContent || "flex-start"};
             align-items: ${TABalignItems || alignItems || "stretch"};
@@ -291,16 +305,6 @@ export default function Style(props) {
             ${contentWidth === "boxed" ? `${contentWidthTab}` : ""}
             ${contentHeightTab}
         }
-        .eb-flex-container-block.${blockId}:hover {
-            ${hoverBackgroundStylesTab}
-            ${bdShadowStylesHoverTab}
-        }
-        .eb-flex-container-block.${blockId}:before {
-            ${overlayStylesTab}
-        }
-        .eb-flex-container-block.${blockId}:hover:before {
-            ${hoverOverlayStylesTab}
-        }
 
     `;
 
@@ -318,7 +322,18 @@ export default function Style(props) {
             ${backgroundStylesMobile}
             ${bdShadowStyesMobile}
         }
-        .eb-flex-container.${blockId}:not(.editor) {
+        .eb-flex-container.${blockId}:hover {
+            ${hoverBackgroundStylesMobile}
+            ${bdShadowStylesHoverMobile}
+        }
+        .eb-flex-container.${blockId}:before {
+            ${overlayStylesMobile}
+        }
+        .eb-flex-container.${blockId}:hover:before {
+            ${hoverOverlayStylesMobile}
+        }
+
+        .eb-flex-container.${blockId}:not(.editor) >.eb-flex-container-inner{
             ${flexDirectionMobile || flexDirectionTab || flexDirectionDesktop || "flex-direction: row;"}
             justify-content: ${MOBjustifyContent || TABjustifyContent || justifyContent || "flex-start"};
             align-items: ${MOBalignItems || TABalignItems || alignItems || "stretch"};
@@ -337,17 +352,6 @@ export default function Style(props) {
             ${columnGapMobile}
             ${contentWidth === "boxed" ? `${contentWidthMobile}` : ""}
             ${contentHeightMobile}
-        }
-
-        .eb-flex-container-block.${blockId}:hover {
-            ${hoverBackgroundStylesMobile}
-            ${bdShadowStylesHoverMobile}
-        }
-        .eb-flex-container-block.${blockId}:before {
-            ${overlayStylesMobile}
-        }
-        .eb-flex-container-block.${blockId}:hover:before {
-            ${hoverOverlayStylesMobile}
         }
 
     `;

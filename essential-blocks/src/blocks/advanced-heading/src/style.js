@@ -272,6 +272,16 @@ export default function Style(props) {
         attributes,
     });
 
+    const {
+        rangeStylesDesktop: svgIconSizeDesktop,
+        rangeStylesTab: svgIconSizeTab,
+        rangeStylesMobile: svgIconSizeMobile,
+    } = generateResponsiveRangeStyles({
+        controlName: SEPARATOR_ICON_SIZE,
+        property: "height",
+        attributes,
+    });
+
     // responsive range controller Separator Width
     const {
         rangeStylesDesktop: separatorLineWidthDesktop,
@@ -572,6 +582,10 @@ export default function Style(props) {
 		.eb-advance-heading-wrapper.${blockId}:hover .eb-ah-separator.icon {
             ${getTextColorCss(separatorHoverColor)}
 		}
+        .eb-advance-heading-wrapper.${blockId} .eb-ah-separator.icon svg {
+            fill: ${separatorColor};
+            ${svgIconSizeDesktop}
+        }
         .eb-advance-heading-wrapper.${blockId} .eb-ah-separator.icon > *{
 			${getTextColorCss(separatorColor)}
 		}
@@ -594,6 +608,9 @@ export default function Style(props) {
 		.eb-advance-heading-wrapper.${blockId} .eb-ah-separator.icon {
 			${separatorIconSizeTab}
 		}
+        .eb-advance-heading-wrapper.${blockId} .eb-ah-separator.icon svg {
+            ${svgIconSizeTab}
+        }
 	`;
 
     const separatorStylesMobile = `
@@ -610,6 +627,9 @@ export default function Style(props) {
 		.eb-advance-heading-wrapper.${blockId} .eb-ah-separator.icon {
 			${separatorIconSizeMobile}
 		}
+        .eb-advance-heading-wrapper.${blockId} .eb-ah-separator.icon svg {
+            ${svgIconSizeMobile}
+        }
 	`;
 
     // all css styles for large screen width (desktop/laptop) in strings ⬇

@@ -149,7 +149,8 @@ function Inspector({ attributes, setAttributes }) {
                 <EBIconPicker
                     title={__("Social Media", "essential-blocks")}
                     value={each.icon || null}
-                    onChange={(value) => onProfileChange("icon", value, i)}
+                    onChange={(value) => onProfileChange('icon', value, i)}
+                    enableSvgUpload={false}
                     icons={{ fontAwesome: socialShareIcons.fontAwesome, dashIcon: socialShareIcons.dashicons }}
                 />
                 <EBTextControl

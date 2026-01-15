@@ -10,7 +10,6 @@ import {
     ButtonGroup,
     RangeControl,
     TextControl,
-    TextareaControl,
     __experimentalDivider as Divider,
 } from "@wordpress/components";
 
@@ -67,6 +66,7 @@ import {
     ResponsiveRangeController,
     ColorControl,
     faArrowIcons,
+    dashiconsArrows,
     EBIconPicker,
     InspectorPanel,
     isValidHtml,
@@ -719,8 +719,10 @@ function Inspector(props) {
                                         "Arrow Prev Icon",
                                         "essential-blocks",
                                     )}
-                                    icons={{ fontAwesome: faArrowIcons }}
-                                    disableDashicon={true}
+                                    icons={{
+                                        fontAwesome: faArrowIcons,
+                                        dashIcon: dashiconsArrows,
+                                    }}
                                 />
                                 <EBIconPicker
                                     value={arrowNextIcon}
@@ -734,8 +736,10 @@ function Inspector(props) {
                                         "Arrow Next Icon",
                                         "essential-blocks",
                                     )}
-                                    icons={{ fontAwesome: faArrowIcons }}
-                                    disableDashicon={true}
+                                    icons={{
+                                        fontAwesome: faArrowIcons,
+                                        dashIcon: dashiconsArrows,
+                                    }}
                                 />
                             </>
                         )}

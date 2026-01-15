@@ -272,6 +272,26 @@ export default function Style(props) {
         attributes,
     });
 
+    const {
+        rangeStylesDesktop: arrowSvgWidthDesktop,
+        rangeStylesTab: arrowSvgWidthTab,
+        rangeStylesMobile: arrowSvgWidthMobile,
+    } = generateResponsiveRangeStyles({
+        controlName: ARROW_SIZE,
+        property: "width",
+        attributes,
+    });
+
+    const {
+        rangeStylesDesktop: arrowSvgHeightDesktop,
+        rangeStylesTab: arrowSvgHeightTab,
+        rangeStylesMobile: arrowSvgHeightMobile,
+    } = generateResponsiveRangeStyles({
+        controlName: ARROW_SIZE,
+        property: "height",
+        attributes,
+    });
+
     // range controller Slider Arrow Size
     const {
         rangeStylesDesktop: dotsSizeDesktop,
@@ -606,14 +626,29 @@ export default function Style(props) {
 			${!isRTLEnable ? rightArrowPositionDesktop : leftArrowPositionDesktop}
 		}
 		.eb-slider-wrapper.${blockId} .slick-prev i,
-		.eb-slider-wrapper.${blockId} .slick-next i {
+		.eb-slider-wrapper.${blockId} .slick-next i,
+        .eb-slider-wrapper.${blockId} .slick-prev span,
+		.eb-slider-wrapper.${blockId} .slick-next span {
 			color: ${arrowColor} !important;
 			${arrowSizeDesktop}
 		}
+        .eb-slider-wrapper.${blockId} .slick-prev,
+        .eb-slider-wrapper.${blockId} .slick-next {
+			${arrowSvgWidthDesktop}
+			${arrowSvgHeightDesktop}
+		}
+        .eb-slider-wrapper.${blockId} .slick-prev svg,
+        .eb-slider-wrapper.${blockId} .slick-next svg {
+			fill: ${arrowColor} !important;
+        }
 		.eb-slider-wrapper.${blockId} .slick-prev i:hover,
 		.eb-slider-wrapper.${blockId} .slick-next i:hover {
 			color: ${arrowHoverColor} !important;
 		}
+        .eb-slider-wrapper.${blockId} .slick-prev:hover svg,
+        .eb-slider-wrapper.${blockId} .slick-next:hover svg {
+			fill: ${arrowHoverColor} !important;
+        }
 		.eb-slider-wrapper.${blockId} .slick-dots {
 			${dotsPositionDesktop}
 		}
@@ -644,8 +679,15 @@ export default function Style(props) {
             ${!isRTLEnable ? rightArrowPositionTab : leftArrowPositionTab}
 		}
 		.eb-slider-wrapper.${blockId} .slick-prev i,
-		.eb-slider-wrapper.${blockId} .slick-next i {
+		.eb-slider-wrapper.${blockId} .slick-next i,
+        .eb-slider-wrapper.${blockId} .slick-prev span,
+		.eb-slider-wrapper.${blockId} .slick-next span  {
 			${arrowSizeTab}
+		}
+        .eb-slider-wrapper.${blockId} .slick-prev,
+        .eb-slider-wrapper.${blockId} .slick-next {
+			${arrowSvgWidthTab}
+			${arrowSvgHeightTab}
 		}
 		.eb-slider-wrapper.${blockId} .slick-dots {
 			${dotsPositionTab}
@@ -673,8 +715,15 @@ export default function Style(props) {
             ${!isRTLEnable ? rightArrowPositionMobile : leftArrowPositionMobile}
 		}
 		.eb-slider-wrapper.${blockId} .slick-prev i,
-		.eb-slider-wrapper.${blockId} .slick-next i {
+		.eb-slider-wrapper.${blockId} .slick-next i,
+        .eb-slider-wrapper.${blockId} .slick-prev span,
+		.eb-slider-wrapper.${blockId} .slick-next span {
 			${arrowSizeMobile}
+		}
+        .eb-slider-wrapper.${blockId} .slick-prev,
+        .eb-slider-wrapper.${blockId} .slick-next {
+			${arrowSvgWidthMobile}
+			${arrowSvgHeightMobile}
 		}
 		.eb-slider-wrapper.${blockId} .slick-dots {
 			${dotsPositionMobile}

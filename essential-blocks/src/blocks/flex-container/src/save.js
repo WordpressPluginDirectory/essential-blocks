@@ -23,7 +23,9 @@ const save = ({ attributes }) => {
         <BlockProps.Save attributes={attributes} rootClass="eb-flex-container-block" htmlTag={htmlTag}>
             <div className={`eb-parent-wrapper eb-parent-flex-container eb-parent-${blockId} ${classHook}`} >
                 <div className={`eb-flex-container ${blockId}`}>
-                    <InnerBlocks.Content />
+                    <div className="eb-flex-container-inner">
+                        <InnerBlocks.Content />
+                    </div>
                 </div>
             </div>
         </BlockProps.Save>

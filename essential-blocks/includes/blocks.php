@@ -54,8 +54,10 @@ use EssentialBlocks\Blocks\TableOfContents;
 use EssentialBlocks\Blocks\InteractivePromo;
 use EssentialBlocks\Blocks\AdvancedNavigation;
 use EssentialBlocks\Blocks\LottieAnimation;
+use EssentialBlocks\Blocks\ImageHotspots;
+use EssentialBlocks\Blocks\Timeline;
 
-$testArr = array(  );
+$testArr = array();
 
 $free_blocks = array(
     'accordion' => array(
@@ -69,7 +71,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/accordion/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/accordion/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/accordion/icon.svg'
-     ),
+    ),
     'button' => array(
         'label' => __( 'Button', 'essential-blocks' ),
         'value' => 'button',
@@ -80,7 +82,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/button/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/button/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/button/icon.svg'
-     ),
+    ),
     'call_to_action' => array(
         'label' => __( 'Call To Action', 'essential-blocks' ),
         'value' => 'call_to_action',
@@ -91,7 +93,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/call-to-action/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/call-to-action/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/call-to-action/icon.svg'
-     ),
+    ),
     'countdown' => array(
         'label' => __( 'Countdown', 'essential-blocks' ),
         'value' => 'countdown',
@@ -102,7 +104,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/countdown/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/countdown/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/countdown/icon.svg'
-     ),
+    ),
     'dual_button' => array(
         'label' => __( 'Dual Button', 'essential-blocks' ),
         'value' => 'dual_button',
@@ -113,7 +115,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/dual-button/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/dual-button/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/dual-button/icon.svg'
-     ),
+    ),
     'flipbox' => array(
         'label' => __( 'Flipbox', 'essential-blocks' ),
         'value' => 'flipbox',
@@ -124,7 +126,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/flipbox/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/flipbox/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/flipbox/icon.svg'
-     ),
+    ),
     'advanced_heading' => array(
         'label' => __( 'Advanced Heading', 'essential-blocks' ),
         'value' => 'advanced_heading',
@@ -136,7 +138,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/advanced-heading/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/heading/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/advanced-heading/icon.svg'
-     ),
+    ),
     'image_comparison' => array(
         'label' => __( 'Image Comparison', 'essential-blocks' ),
         'value' => 'image_comparison',
@@ -147,7 +149,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/image-comparison/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/image-comparison/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/image-comparison/icon.svg'
-     ),
+    ),
     'image_gallery' => array(
         'label' => __( 'Filterable Gallery', 'essential-blocks' ),
         'value' => 'image_gallery',
@@ -159,7 +161,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/filterable-gallery/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-filterable-gallery/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/image-gallery/icon.svg'
-     ),
+    ),
     'infobox' => array(
         'label' => __( 'Infobox', 'essential-blocks' ),
         'value' => 'infobox',
@@ -171,7 +173,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/infobox/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/infobox/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/infobox/icon.svg'
-     ),
+    ),
     'instagram_feed' => array(
         'label' => __( 'Instagram Feed', 'essential-blocks' ),
         'value' => 'instagram_feed',
@@ -182,7 +184,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/instagram-feed/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/instagram-feed/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/instagram-feed/icon.svg'
-     ),
+    ),
     'interactive_promo' => array(
         'label' => __( 'Interactive Promo', 'essential-blocks' ),
         'value' => 'interactive_promo',
@@ -193,7 +195,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/interactive-promo/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/interactive-promo/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/interactive-promo/icon.svg'
-     ),
+    ),
     'notice' => array(
         'label' => __( 'Notice', 'essential-blocks' ),
         'value' => 'notice',
@@ -203,7 +205,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/notice/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/notice/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/notice/icon.svg'
-     ),
+    ),
     'parallax_slider' => array(
         'label' => __( 'Parallax Slider', 'essential-blocks' ),
         'value' => 'parallax_slider',
@@ -214,7 +216,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/parallax-slider/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/parallax-slider/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/parallax-slider/icon.svg'
-     ),
+    ),
     'pricing_table' => array(
         'label' => __( 'Pricing Table', 'essential-blocks' ),
         'value' => 'pricing_table',
@@ -226,7 +228,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/pricing-table/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/pricing-table/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/pricing-table/icon.svg'
-     ),
+    ),
     'progress_bar' => array(
         'label' => __( 'Progress Bar', 'essential-blocks' ),
         'value' => 'progress_bar',
@@ -238,7 +240,7 @@ $free_blocks = array(
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/progress-bar/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/progress-bar/icon.svg'
 
-     ),
+    ),
     'slider' => array(
         'label' => __( 'Slider', 'essential-blocks' ),
         'value' => 'slider',
@@ -250,7 +252,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/slider/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/slider/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/slider/icon.svg'
-     ),
+    ),
     'social' => array(
         'label' => __( 'Social Icons', 'essential-blocks' ),
         'value' => 'social',
@@ -261,7 +263,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/social/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/social/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/social/icon.svg'
-     ),
+    ),
     'social_share' => array(
         'label' => __( 'Social Share', 'essential-blocks' ),
         'value' => 'social_share',
@@ -272,7 +274,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/social-share/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-social-share/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/social-share/icon.svg'
-     ),
+    ),
     'team_member' => array(
         'label' => __( 'Team Member', 'essential-blocks' ),
         'value' => 'team_member',
@@ -283,7 +285,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/team-member/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/team-member/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/team-member/icon.svg'
-     ),
+    ),
     'testimonial' => array(
         'label' => __( 'Testimonial', 'essential-blocks' ),
         'value' => 'testimonial',
@@ -294,7 +296,19 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/testimonial/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/testimonial/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/testimonial/icon.svg'
-     ),
+    ),
+    'timeline' => array(
+        'label' => __( 'Timeline', 'essential-blocks' ),
+        'value' => 'timeline',
+        'visibility' => 'true',
+        'category' => 'content',
+        'status' => 'new',
+        'preferences' => array( 'basic', 'advanced' ),
+        'object' => Timeline::get_instance(),
+        'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/timeline/',
+        'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-timeline/',
+        'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/timeline/icon.svg'
+    ),
     'toggle_content' => array(
         'label' => __( 'Toggle Content', 'essential-blocks' ),
         'value' => 'toggle_content',
@@ -304,7 +318,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/toggle-content/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-toggle-content/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/toggle-content/icon.svg'
-     ),
+    ),
     'typing_text' => array(
         'label' => __( 'Typing Text', 'essential-blocks' ),
         'value' => 'typing_text',
@@ -315,7 +329,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/typing-text/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/typing-text/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/typing-text/icon.svg'
-     ),
+    ),
     'wrapper' => array(
         'label' => __( 'Wrapper', 'essential-blocks' ),
         'value' => 'wrapper',
@@ -326,7 +340,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/wrapper/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/block-wrapper/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/wrapper/icon.svg'
-     ),
+    ),
     'flex_container' => array(
         'label' => __( 'Flex Container', 'essential-blocks' ),
         'value' => 'flex_container',
@@ -338,7 +352,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/flex-container/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-flex-container/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/flex-container/icon.svg'
-     ),
+    ),
     'number_counter' => array(
         'label' => __( 'Number Counter', 'essential-blocks' ),
         'value' => 'number_counter',
@@ -349,7 +363,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/number-counter/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-number-counter/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/number-counter/icon.svg'
-     ),
+    ),
     'post_grid' => array(
         'label' => __( 'Post Grid', 'essential-blocks' ),
         'value' => 'post_grid',
@@ -361,7 +375,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/post-grid/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-post-grid/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/post-grid/icon.svg'
-     ),
+    ),
     'feature_list' => array(
         'label' => __( 'Feature List', 'essential-blocks' ),
         'value' => 'feature_list',
@@ -372,7 +386,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/feature-list/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-feature-list/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/feature-list/icon.svg'
-     ),
+    ),
     'row' => array(
         'label' => __( 'Row', 'essential-blocks' ),
         'value' => 'row',
@@ -384,7 +398,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/row/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-row/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/row/icon.svg'
-     ),
+    ),
     'table_of_contents' => array(
         'label' => __( 'Table Of Contents', 'essential-blocks' ),
         'value' => 'table_of_contents',
@@ -396,7 +410,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/table-of-contents/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-table-of-contents/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/table-of-contents/icon.svg'
-     ),
+    ),
     'fluent_forms' => array(
         'label' => __( 'Fluent Forms', 'essential-blocks' ),
         'value' => 'fluent_forms',
@@ -406,7 +420,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/fluent-forms-2/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-fluent-forms/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/fluent-forms/icon.svg'
-     ),
+    ),
     'advanced_tabs' => array(
         'label' => __( 'Advanced Tabs', 'essential-blocks' ),
         'value' => 'advanced_tabs',
@@ -418,7 +432,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/advanced-tab/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-advanced-tabs/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/advanced-tabs/icon.svg'
-     ),
+    ),
     'advanced_navigation' => array(
         'label' => __( 'Advanced Navigation', 'essential-blocks' ),
         'value' => 'advanced_navigation',
@@ -429,7 +443,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/advanced-navigation/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-advanced-navigation/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/advanced-navigation/icon.svg'
-     ),
+    ),
     'woo_product_grid' => array(
         'label' => __( 'Woo Product Grid', 'essential-blocks' ),
         'value' => 'woo_product_grid',
@@ -441,7 +455,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/woo-product-grid/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/woo-product-grid/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/woo-product-grid/icon.svg'
-     ),
+    ),
     'advanced_image' => array(
         'label' => __( 'Advanced Image', 'essential-blocks' ),
         'value' => 'advanced_image',
@@ -452,7 +466,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/advanced-image/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-advanced-image/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/advanced-image/icon.svg'
-     ),
+    ),
     'wpforms' => array(
         'label' => __( 'WPForms', 'essential-blocks' ),
         'value' => 'wpforms',
@@ -462,7 +476,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/wpforms/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-wpforms/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/wpforms/icon.svg'
-     ),
+    ),
     'post_carousel' => array(
         'label' => __( 'Post Carousel', 'essential-blocks' ),
         'value' => 'post_carousel',
@@ -473,7 +487,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/post-carousel/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-post-carousel/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/post-carousel/icon.svg'
-     ),
+    ),
     'advanced_video' => array(
         'label' => __( 'Advanced Video', 'essential-blocks' ),
         'value' => 'advanced_video',
@@ -485,7 +499,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/advanced-video/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-advanced-video/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/advanced-video/icon.svg'
-     ),
+    ),
     'popup' => array(
         'label' => __( 'Popup', 'essential-blocks' ),
         'value' => 'popup',
@@ -496,7 +510,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/popup/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-popup/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/popup/icon.svg'
-     ),
+    ),
     'openverse' => array(
         'label' => __( 'Openverse', 'essential-blocks' ),
         'value' => 'openverse',
@@ -506,7 +520,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/openverse/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/openverse/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/openverse/icon.svg'
-     ),
+    ),
     'nft_gallery' => array(
         'label' => __( 'NFT Gallery', 'essential-blocks' ),
         'value' => 'nft_gallery',
@@ -517,7 +531,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/nft-gallery/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-nft-gallery/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/nft-gallery/icon.svg'
-     ),
+    ),
     'google_map' => array(
         'label' => __( 'Google Maps', 'essential-blocks' ),
         'value' => 'google_map',
@@ -528,7 +542,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/google-maps/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-google-maps/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/google-map/icon.svg'
-     ),
+    ),
     'shape_divider' => array(
         'label' => __( 'Shape Divider', 'essential-blocks' ),
         'value' => 'shape_divider',
@@ -539,7 +553,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/shape-divider/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-shape-divider',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/shape-divider/icon.svg'
-     ),
+    ),
     'form' => array(
         'label' => __( 'Form', 'essential-blocks' ),
         'value' => 'form',
@@ -551,7 +565,7 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/form-block/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-form-block',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/form/icon.svg'
-     ),
+    ),
     'icon' => array(
         'label' => __( 'Icon Picker', 'essential-blocks' ),
         'value' => 'icon',
@@ -561,8 +575,8 @@ $free_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/icon-picker/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-icon-picker',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/icon/icon.svg'
-     )
- );
+    )
+);
 
 $new_blocks = array(
     'text' => array(
@@ -574,7 +588,7 @@ $new_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/text-block/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-text/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/text/icon.svg'
-     ),
+    ),
     'taxonomy' => array(
         'label' => __( 'Taxonomy', 'essential-blocks' ),
         'value' => 'taxonomy',
@@ -584,7 +598,7 @@ $new_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/taxonomy/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-taxonomy/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/taxonomy/icon.svg'
-     ),
+    ),
     'product_price' => array(
         'label' => __( 'Product Price', 'essential-blocks' ),
         'value' => 'product_price',
@@ -594,7 +608,7 @@ $new_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/woo-product-price/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-woo-product-price/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/product-price/icon.svg'
-     ),
+    ),
     'post_meta' => array(
         'label' => __( 'Post Meta', 'essential-blocks' ),
         'value' => 'post_meta',
@@ -604,7 +618,7 @@ $new_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/post-meta/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-post-meta/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/post-meta/icon.svg'
-     ),
+    ),
     'product_rating' => array(
         'label' => __( 'Product Rating', 'essential-blocks' ),
         'value' => 'product_rating',
@@ -614,7 +628,7 @@ $new_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/woo-product-rating/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-product-rating/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/product-rating/icon.svg'
-     ),
+    ),
     'product_details' => array(
         'label' => __( 'Product Details', 'essential-blocks' ),
         'value' => 'product_details',
@@ -624,7 +638,7 @@ $new_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/woo-product-details/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-woo-product-details/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/product-details/icon.svg'
-     ),
+    ),
     'add_to_cart' => array(
         'label' => __( 'Add To Cart', 'essential-blocks' ),
         'value' => 'add_to_cart',
@@ -634,7 +648,7 @@ $new_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/woo-add-to-cart/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/woo-add-to-cart/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/add-to-cart/icon.svg'
-     ),
+    ),
     'product_images' => array(
         'label' => __( 'Product Images', 'essential-blocks' ),
         'value' => 'product_images',
@@ -644,7 +658,7 @@ $new_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/woo-product-image/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-woo-product-image/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/product-images/icon.svg'
-     ),
+    ),
     'breadcrumbs' => array(
         'label' => __( 'Breadcrumbs', 'essential-blocks' ),
         'value' => 'breadcrumbs',
@@ -654,7 +668,7 @@ $new_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/breadcrumbs/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-breadcrumbs/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/breadcrumbs/icon.svg'
-     ),
+    ),
     'lottie_animation' => array(
         'label' => __( 'Lottie Animation', 'essential-blocks' ),
         'value' => 'lottie_animation',
@@ -666,8 +680,19 @@ $new_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/lottie-animation/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-lottie-animation/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/lottie-animation/icon.svg'
-     )
- );
+    ),
+    'image_hotspots' => array(
+        'label' => __( 'Image Hotspots', 'essential-blocks' ),
+        'value' => 'image_hotspots',
+        'visibility' => 'true',
+        'status' => 'new',
+        'category' => 'creative',
+        'object' => ImageHotspots::get_instance(),
+        'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/image-hotspots/',
+        'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-image-hotspots/',
+        'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/image-hotspots/icon.svg'
+    )
+);
 
 $pro_blocks = array(
     'advanced_search' => array(
@@ -681,7 +706,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/advanced-search',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-advanced-search',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/adv-search.svg'
-     ),
+    ),
     'data_table' => array(
         'label' => __( 'Data Table', 'essential-blocks' ),
         'description' => __( 'Insert an advanced data table on your website without any code and display information in an eye-catching way', 'essential-blocks' ),
@@ -693,7 +718,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/data-table/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-data-table',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/data-table.svg'
-     ),
+    ),
     'timeline_slider' => array(
         'label' => __( 'Timeline Slider', 'essential-blocks' ),
         'description' => __( 'Showcase your posts & pages in an attractive timeline slider and design with stunning presets & styling options', 'essential-blocks' ),
@@ -705,7 +730,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/timeline-slider',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-timeline-slider',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/timeline-slider.svg'
-     ),
+    ),
     'news_ticker' => array(
         'label' => __( 'News Ticker', 'essential-blocks' ),
         'description' => __( 'Show the latest news on your website with a dynamic ticker in an engaging way that instantly drives attention', 'essential-blocks' ),
@@ -717,7 +742,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/news-ticker',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-news-ticker',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/news-ticker.svg'
-     ),
+    ),
     'woo_product_carousel' => array(
         'label' => __( 'Woo Product Carousel', 'essential-blocks' ),
         'description' => __( 'Display your WooCommerce products with dynamic Product Carousels and designs using limitless styling options', 'essential-blocks' ),
@@ -729,7 +754,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/woo-product-carousel/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-woo-product-carousel',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/product-carousel.svg'
-     ),
+    ),
     'multicolumn_pricing_table' => array(
         'label' => __( 'Multicolumn Pricing Table', 'essential-blocks' ),
         'description' => __( 'Create stunning Multicolumn Pricing Table on your website to display and compare different pricing tiers or plans for a product or service.', 'essential-blocks' ),
@@ -742,7 +767,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/multicolumn-pricing-table',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-multicolumn-pricing-table',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/multicolumn-pricing-table.svg'
-     ),
+    ),
     'fancy_chart' => array(
         'label' => __( 'Fancy Chart', 'essential-blocks' ),
         'description' => __( 'Design visually stunning & interactive charts to bring life to dull datasets', 'essential-blocks' ),
@@ -755,7 +780,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/fancy-chart',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-fancy-chart',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/fancy-chart.svg'
-     ),
+    ),
     'stacked_cards' => array(
         'label' => __( 'Stacked Cards', 'essential-blocks' ),
         'description' => __( 'Display your content in a unique style with the EB Stacked Cards block. With this block, you can easily make your stacked cards sticky in place and provide users an interactive experience when they scroll through your website.', 'essential-blocks' ),
@@ -768,7 +793,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/stacked-cards',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-stacked-cards',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/stacked-cards.svg'
-     ),
+    ),
     'testimonial_slider' => array(
         'label' => __( 'Testimonial Slider', 'essential-blocks' ),
         'description' => __( 'Showcase credible customer reviews and rating in Gutenberg with stunning design presets', 'essential-blocks' ),
@@ -780,7 +805,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/testimonial-slider/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-testimonial-slider',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/testimonial-slider.svg'
-     ),
+    ),
     'off_canvas' => array(
         'label' => __( 'Offcanvas', 'essential-blocks' ),
         'description' => __( 'Showcase a sidebar menu on your Gutenberg site using the Offcanvas block and grab visitors’ attention with various stunning transitions & effects', 'essential-blocks' ),
@@ -792,7 +817,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/offcanvas/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-offcanvas/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/offcanvas.svg'
-     ),
+    ),
     'loop_builder' => array(
         'label' => __( 'Loop Builder', 'essential-blocks' ),
         'description' => __( 'Create dynamic post loop layouts with advanced query & taxonomies. Display pages, posts, products with visual query loop builder.', 'essential-blocks' ),
@@ -804,7 +829,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/query-loop-builder/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-loop-builder/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/loop-builder.svg'
-     ),
+    ),
     'post_template' => array(
         'label' => __( 'Post Template', 'essential-blocks' ),
         'description' => __( 'Contains the block elements used to render a post within a Loop Builder, like the title, date, featured image, content or excerpt, and more.', 'essential-blocks' ),
@@ -817,7 +842,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/loop-builder/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-loop-builder/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/post-template.svg'
-     ),
+    ),
     'loop_pagination' => array(
         'label' => __( 'Loop Pagination', 'essential-blocks' ),
         'description' => __( 'Display pagination controls for Loop Builder to navigate through multiple pages of posts.', 'essential-blocks' ),
@@ -830,7 +855,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/loop-builder/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-loop-builder/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/loop-pagination.svg'
-     ),
+    ),
     'mega_menu' => array(
         'label' => __( 'Mega Menu', 'essential-blocks' ),
         'description' => __( 'Create fully customizable menus with flexible & dynamic layouts like grid, nested, listicle, and more.', 'essential-blocks' ),
@@ -843,7 +868,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/mega-menu',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-mega-menu',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/mega-menu.svg'
-     ),
+    ),
     'business_hours' => array(
         'label' => __( 'Business Hours', 'essential-blocks' ),
         'value' => 'business_hours',
@@ -855,7 +880,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/business-hours',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-business-hours',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/business-hours.svg'
-     ),
+    ),
     'form_datetime_picker' => array(
         'label' => __( 'Date Time Picker', 'essential-blocks' ),
         'description' => __( 'Form Block Date/Time Picker', 'essential-blocks' ),
@@ -869,7 +894,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/form-block/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-form-block',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/form-datetime-picker.svg'
-     ),
+    ),
     'form_recaptcha' => array(
         'label' => __( 'Google reCaptcha', 'essential-blocks' ),
         'description' => __( 'Google reCaptcha for Form Block', 'essential-blocks' ),
@@ -883,7 +908,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/form-block/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-form-block',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/form-recaptcha.svg'
-     ),
+    ),
     'form_country_field' => array(
         'label' => __( 'Country Field', 'essential-blocks' ),
         'description' => __( 'Form Block Country Field', 'essential-blocks' ),
@@ -897,7 +922,7 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/form-block/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-form-block',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/form-country-field.svg'
-     ),
+    ),
     'form_phone_field' => array(
         'label' => __( 'Phone Field', 'essential-blocks' ),
         'description' => __( 'Form Block Phone Field', 'essential-blocks' ),
@@ -911,7 +936,19 @@ $pro_blocks = array(
         'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/phone-field/',
         'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-phone-field/',
         'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/form-phone-field.svg'
-     )
- );
+    ),
+    'animated_wrapper' => array(
+        'label' => __( 'Animated Wrapper', 'essential-blocks' ),
+        'value' => 'animated_wrapper',
+        'visibility' => 'true',
+        'is_pro' => true,
+        'status' => 'new',
+        'name' => 'pro-animated-wrapper',
+        'category' => 'creative',
+        'demo' => ESSENTIAL_BLOCKS_SITE_URL . 'demo/animated-wrapper',
+        'doc' => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-animated-wrapper',
+        'icon' => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/blocks-icon/animated-wrapper.svg'
+    )
+);
 
 return array_merge( $free_blocks, $new_blocks, $pro_blocks );

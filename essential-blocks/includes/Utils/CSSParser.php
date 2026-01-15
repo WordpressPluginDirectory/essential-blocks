@@ -188,7 +188,21 @@ class CSSParser
             }
         }
 
-        return trim( $css );
+        $css = trim( $css );
+
+        /**
+         * Filter the generated CSS before it's written to file.
+         *
+         * This filter allows third-party plugins (like Optimole) to modify the CSS output
+         * before it's persisted to disk. This is particularly useful for CDN-based image
+         * optimization plugins that need to process background image URLs.
+         *
+         * @since 5.0.9
+         *
+         * @param string $css The generated CSS string.
+         * @param array $style_object The original style object array used to generate the CSS.
+         */
+        return apply_filters( 'eb_blocks_generated_css', $css, $style_object );
     }
 
     /**

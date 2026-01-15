@@ -9,6 +9,7 @@ use PriyoMukul\WPNotice\Utils\CacheBank;
 use EssentialBlocks\Traits\HasSingletone;
 use EssentialBlocks\Dependencies\Insights;
 use PriyoMukul\WPNotice\Utils\NoticeRemover;
+use EssentialBlocks\Admin\PointerNotices;
 
 // use EssentialBlocks\Dependencies\WPNotice\Notices;
 
@@ -33,6 +34,12 @@ class Admin {
 
         // Remove OLD notice from 1.0.0 (if other WPDeveloper plugin has notice)
         NoticeRemover::get_instance( '1.0.0' );
+
+        // Initialize Pointer Notices
+        PointerNotices::get_instance();
+
+        // Register example pointer notices
+        add_action( 'admin_init', array( $this, 'register_pointer_notices' ) );
 
         add_action( 'init', array( $this, 'notices' ) );
 
@@ -137,10 +144,10 @@ class Admin {
             );
 
             array_unshift( $links, $settings_links );
-
+            // have to change the Go Pro Text and url after 04 Dec 2025
             if ( ! class_exists( 'EssentialBlocks\Pro\Plugin' ) ) {
                 $go_pro_link = sprintf(
-                    '<a target="_blank" href="%1$s"><strong style="color:#5e2eff;display: inline-block;">Go Pro</strong></a>',
+                    '<a target="_blank" href="%1$s"><strong style="color:#CF4CDD;display: inline-block;">Upgrade to Pro</strong></a>',
                     ESSENTIAL_BLOCKS_UPGRADE_PRO_URL
                 );
                 array_push( $links, $go_pro_link );
@@ -411,6 +418,7 @@ class Admin {
         wp_enqueue_script( 'jquery' );
 
         wpdev_essential_blocks()->assets->register( 'admin-controls-util', 'admin/controls/controls.js', array(
+            'regenerator-runtime',
             'essential-blocks-blocks-localize'
         ) );
 
@@ -1102,7 +1110,7 @@ class Admin {
         $changelog_url = esc_url( 'https://essential-blocks.com/changelog/' );
 
         $message_template = __(
-            "<p><i>📣</i> Introducing New Block - Flex Container <strong>vin Essential Blocks 5.8.0</strong> - Create flexible layouts with CSS Flexbox properties for responsive design! For more details, check out this <strong><a target='_blank' href='%s'>changelog</a></strong>.</p>",
+            "<p><i>📣</i> Introducing Timeline Block in <strong>Essential Blocks 5.9.0</strong> - Create visually engaging and fully customizable content timelines in WordPress to showcase your stories.! For more details, check out this <strong><a target='_blank' href='%s'>changelog</a></strong>.</p>",
             "essential-blocks"
         );
 
@@ -1132,5 +1140,28 @@ class Admin {
                 include $view_path;
             }
         }
+    }
+
+    /**
+     * Register pointer notices for Essential Blocks
+     *
+     * @return void
+     */
+    public function register_pointer_notices() {
+        // Example: Welcome pointer for new users (hidden when pro is active)
+        PointerNotices::register( 'ebbf_deal', array(
+            'target' => '#toplevel_page_essential-blocks',
+            'content' => '<h3>' . __( 'Black Friday for Gutenberg Lovers', 'essential-blocks' ) . '</h3>' .
+            '<p>' . __( 'Create stunning layouts effortlessly with premium Gutenberg blocks crafted for speed and flexibility.', 'essential-blocks' ) . '</p>',
+            'edge' => 'left',
+            'align' => 'center',
+            'buttonText' => __( 'Unlock Offer', 'essential-blocks' ),
+            'buttonLink' => 'https://essential-blocks.com/bfcm-wp-admin-pointer ',
+            'screen' => array( 'index.php', 'toplevel_page_essential-blocks', 'plugins.php' ),
+            'capability' => 'activate_plugins',
+            'hide_when_pro_active' => true,
+            'priority' => 3, // Essential Blocks priority
+            'expires' => '2025-12-04 23:59:59'
+        ) );
     }
 }
