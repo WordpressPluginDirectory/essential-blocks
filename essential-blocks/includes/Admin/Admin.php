@@ -1110,7 +1110,7 @@ class Admin {
         $changelog_url = esc_url( 'https://essential-blocks.com/changelog/' );
 
         $message_template = __(
-            "<p><i>📣</i> Introducing Timeline Block in <strong>Essential Blocks 5.9.0</strong> - Create visually engaging and fully customizable content timelines in WordPress to showcase your stories.! For more details, check out this <strong><a target='_blank' href='%s'>changelog</a></strong>.</p>",
+            "<p><i>📣</i> Introducing Timeline Block in <strong>Essential Blocks 6.0.0</strong> - Create visually engaging and fully customizable content timelines in WordPress to showcase your stories.! For more details, check out this <strong><a target='_blank' href='%s'>changelog</a></strong>.</p>",
             "essential-blocks"
         );
 
