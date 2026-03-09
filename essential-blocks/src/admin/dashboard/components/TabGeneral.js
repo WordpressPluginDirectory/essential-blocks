@@ -277,43 +277,22 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 6.0.0", "essential-blocks")}
+                                    {__("Version: 6.0.5", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("15/01/2026", "essential-blocks")}
+                                        {__("09/03/2026", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Added: New Block | Timeline",
+                                            "Improved: WPML compatibility",
                                             "essential-blocks"
                                         )}
 
                                     </li>
                                     <li>
                                         {__(
-                                            "Improved: Typing Text | Dynamic Tag Support",
-                                            "essential-blocks"
-                                        )}
-
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Advanced Navigation | Submenu not displaying properly in frontend",
-                                            "essential-blocks"
-                                        )}
-
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Advanced Tabs | Vertical mode conflict in Inner Blocks",
-                                            "essential-blocks"
-                                        )}
-
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Flex Container | Height not working properly",
+                                            "Fixed: Advanced Image | Caption style issue",
                                             "essential-blocks"
                                         )}
 

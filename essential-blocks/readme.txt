@@ -4,7 +4,7 @@ Tags: Gutenberg, Block Editor, Gutenberg Templates, Gutenberg WooCommerce, Gener
 Requires at least: 5.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 6.0.0
+Stable tag: 6.0.5
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -68,7 +68,7 @@ Directly from your Gutenberg block editor, you can control each block’s respon
 ##💧LIQUID GLASS EFFECT ON WORDPRESS
 Add smooth, glossy liquid glassmorphism effects to your WordPress site; no coding is needed. Instantly bring modern and futuristic UI to Gutenberg designs.
 
-##💫 ADVANCED ANIMATION WITH GSAP FOR PAGE BUILDER (PRO)
+##💫 ADVANCED ANIMATION FOR PAGE BUILDER (PRO)
 With our latest exclusive feature, animation, you can design every block with a stunning animated appearance. Add smooth transitions, scroll effects and vibrant animations. Grab users’ attention instantly with eye-catching animations, transitions, and many more.
 
 ##⚡ DYNAMIC TAGS & ACF SUPPORT (PRO)
@@ -270,6 +270,31 @@ If you found the recent version of Essential Blocks isn’t working or conflicti
 
 
 == Changelog ==
+= 6.0.5 - 09/03/2026 =
+- Improved: WPML compatibility
+- Fixed: Advanced Image | Caption style issue
+- Few minor bug fixes & improvements
+
+= 6.0.4 - 26/02/2026 =
+- Added: Slider Block | Marquee Slider Layout
+- Added: Woo Product Grid | Product image size option
+- Added: Advanced Image | Image alt text settings for better SEO
+- Fixed: Table of Contents | Duplicate ID issue
+- Few minor bug fixes & improvements
+
+= 6.0.3 - 10/02/2026 =
+- Added: Pricing Table | Individual feature color and customization options
+- Fixed: Team Member | Avatar image can't be deleted
+- Fixed: Pricing Table | Feature alignment issue
+- Few minor bug fixes & improvements
+
+= 6.0.1 - 26/01/2026 =
+- Fixed: Accordion | Attempt recovery issue for non admin users
+- Fixed: Accordion | Preset with image not working properly
+- Fixed: Advanced Heading | Enabling link option gets unwanted font size
+- Fixed: Call To Action | Overlap issue with advanced navigation
+- Fixed: Using Broken HTML tags in rich text input crashes some blocks
+- Few minor bug fixes & improvements
 
 = 6.0.0 - 15/01/2026 =
 - Added: New Block | Timeline
@@ -279,14 +304,11 @@ If you found the recent version of Essential Blocks isn’t working or conflicti
 - Fixed: Flex Container | Height not working properly
 - Few minor bug fixes & improvements
 
-
-
 = 5.9.1 - 24/12/2025 =
 - Fixed: Quick Setup showing blank page
 - Fixed: Slider | Images getting cropped for Custom Height
 - Fixed: Interactive Animation | Animation fails to trigger in frontend
 - Few minor bug fixes & improvements
-
 
 = 5.9.0 - 17/12/2025 =
 - Added: New Block | Image Hotspots
