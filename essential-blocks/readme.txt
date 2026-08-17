@@ -1,10 +1,10 @@
 === Gutenberg Essential Blocks – Page Builder for Gutenberg Blocks & Patterns ===
-Contributors: wpdevteam, re_enter_rupok, asif2bd, rahat89, priyomukul, jamilbd07, fencermonir, sumaiyasiddika
+Contributors: wpdevteam, re_enter_rupok, asif2bd, rahat89, priyomukul, jamilbd07, fencermonir, sumaiyasiddika, RahatSheikhLeon
 Tags: Gutenberg, Block Editor, Gutenberg Templates, Gutenberg WooCommerce, Generate with AI
 Requires at least: 5.8
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 6.1.1
+Stable tag: 6.4.2
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -79,6 +79,15 @@ Instantly add engaging transform effects to your Gutenberg blocks and create int
 
 ##🔒 PASSWORD PROTECT CONTENT & BLOCKS (PRO)
 Secure any Gutenberg block, section, or content with password protection and control who gets access. Easily restrict premium resources, exclusive content, private pages, or client-only sections directly from the block editor without writing a single line of code.
+
+##🎨 IMAGE MASKING & MORPHING (FREEMIUM)
+Transform ordinary images into captivating visual experiences with advanced masking and morphing effects. Easily apply creative shapes, seamless transitions, and dynamic image transformations to highlight products, showcase portfolios, or create engaging website sections—all directly within the Gutenberg editor without writing a single line of code.
+
+##🧭 ONE PAGE NAVIGATION (PRO)
+Guide visitors through long pages with smooth, customizable one page navigation. Create sticky section menus that let users jump between content effortlessly, improve the browsing experience and keep readers engaged, all within the Gutenberg editor without writing a line of code.
+
+##📋 COPY/PASTE STYLE (FREE)
+Build faster while keeping every page visually consistent. Copy the complete style of any Essential Blocks block and paste it onto another with a single click. Reuse your favorite designs, save time and eliminate repetitive customization, built directly into the Gutenberg editor with no coding required.
 
 ##🖼️ READY GUTENBERG PATTERNS BUILT WITH BLOCKS
 Get stunningly designed, ready-to-use Gutenberg block patterns for your WordPress website. Instantly add a block layout to Gutenberg or your site editor to make your website-building experience faster and more effective.
@@ -179,6 +188,7 @@ Design without limits in WordPress block editor, using 70+ of the most useful Es
 - **[Animated Wrapper (PRO)](https://essential-blocks.com/demo/animated-wrapper/)** - Design interactive layouts & containers in Gutenberg with dynamic animation effects.
 - **[Image Hotspots](https://essential-blocks.com/demo/image-hotspots/)** - This block enables you to pin items, products, etc into images with detailed pricing, URL, and description and make them interactive.
 - **[Timeline](https://essential-blocks.com/demo/timeline/)** - Create an interactive timeline in WordPress to showcase your story or company's history, achievements, events, and roadmaps.
+- **[One Page Navigation (PRO)](https://essential-blocks.com/demo/one-page-navigation/)** - Create smooth scrolling navigation menus for single page Gutenberg websites.
 
 More Gutenberg blocks and demos coming soon for the block visual editor (weekly update)
 
@@ -276,6 +286,67 @@ If you found the recent version of Essential Blocks isn’t working or conflicti
 
 
 == Changelog ==
+= 6.4.2 - 16/08/2026 =
+- Fixed: Compatibility issue with Astra theme Customizer UI
+- Few minor bug fixes & improvements
+
+
+= 6.4.1 - 06/08/2026 =
+- Fixed: Facebook Feed editor and multi-feed display issues
+- Fixed: Instagram Feed content, caching, and API request issues
+- Fixed: PHP 8 undefined variable warnings in WooCommerce single product view
+- Few minor bug fixes & improvements
+
+
+= 6.4.0 - 28/07/2026 =
+- Added: New Feature | Copy/Paste EB Styles
+- Fixed: Filterable Gallery initial height issue
+- Fixed: Facebook Feed overflow inside Wrapper
+- Improved: Security enhancements
+- Improved: Minor bug fixes & enhancements
+
+
+= 6.3.0 - 24/06/2026 =
+- New Block | Facebook Feed
+- Fixed: Table of Contents block issue with the latest WordPress version
+- Few minor bug fixes & improvements
+
+
+= 6.2.1 - 18/06/2026 =
+- Improved: Liquid Glass in Individual Blocks
+- Improved: Improved Free block rendering and frontend stability (infobox)
+- Improved : Image Masking Hover Clip-Path & Clip Morphing
+- Fixed: AI popup not showing Edit with AI option in Image component
+- Fixed: Advanced Menu interactivity module issue in Gutenberg
+- Few minor bug fixes & improvements
+
+
+= 6.2.0 - 08/06/2026 =
+- Added: New Feature | Image Masking and Morphing
+- Improved: Security enhancements
+- Few minor bug fixes & improvements
+
+
+= 6.1.4 - 04/06/2026 =
+- Improved: Enhanced compatibility with WordPress 7.0.
+- Improved: Security enhancements.
+- Fixed: Advanced Video editor UI issues.
+- Fixed: Advanced Image Site Logo issue.
+- Fixed: Remove Image button issue.
+- Few minor bug fixes & improvements
+
+
+= 6.1.3 - 20/05/2026 =
+- Added: WordPress 7.0 Compatibility
+- Fixed: Advanced Image | Caption Styles and Alignment Issues
+- Few minor bug fixes & improvements
+
+
+= 6.1.2 - 13/05/2026 =
+- Added: Icon Library update
+- Few minor bug fixes & improvements
+
+
 = 6.1.1 - 11/05/2026 =
 - Added: Post Meta | ACF Field support
 - Added: Flex Container option to inherit theme content width

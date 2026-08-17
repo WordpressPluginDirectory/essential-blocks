@@ -4,6 +4,7 @@ namespace EssentialBlocks\Admin;
 
 use PriyoMukul\WPNotice\Notices;
 use EssentialBlocks\Utils\Helper;
+use EssentialBlocks\Utils\ImageValidator;
 use EssentialBlocks\Utils\Settings;
 use PriyoMukul\WPNotice\Utils\CacheBank;
 use EssentialBlocks\Traits\HasSingletone;
@@ -247,28 +248,28 @@ class Admin {
         );
 
         /**
-         * Spring Campaign 2026 Notice
+         * Summer Campaign 2026 Notice
          */
-        $spring_campaign2026_message = '<p class="eb_notice_content" style="margin-top: 0; margin-bottom: 10px;text-transform: capitalize;">🌸 <strong>Spring Savings:</strong> Get 70+ AI-powered blocks and features to unlock smarter design flexibility on Gutenberg – now <strong>Flat 25% OFF!</strong> ⚡️ </p>
-        <a class="button button-primary" href="https://essential-blocks.com/spring2026-admin-notice" target="_blank" style="background-color: #5252DC; border-color: #5252DC; border-radius: 6px; font-size: 14px; font-weight: 500;" >Upgrade to PRO Now</a>
-        <a class="button button-secondary" href="https://essential-blocks.com/spring2026-admin-notice-ltd" target="_blank" style="color: #171717; background-color: #EFEFEF; border-color: #D1D1D1; border-radius: 6px; font-size: 14px; font-weight: 500;">Give Me LIFETIME Access</a>
-        <button data-dismiss="true" class="dismiss-btn button button-link" style="color: #424242; font-size: 14px;">Maybe Later</button>';
-        $spring_campaign2026_notice = array(
+        $summer_campaign2026_message = '<p class="eb_notice_content" style="margin-top: 0; margin-bottom: 10px;text-transform: capitalize;">🏖️ <strong>Summer Savings:</strong> Get 70+ AI-powered blocks and features to unlock design flexibility on Gutenberg – now <strong>up to $150 OFF!</strong></p>
+        <a class="button button-primary" href="https://essential-blocks.com/summer2026-admin-notice" target="_blank" style="background-color: #5252DC; border-color: #5252DC; border-radius: 6px; font-size: 14px; font-weight: 500;" >Upgrade To Pro Now</a>
+        <a class="button button-secondary" href="https://essential-blocks.com/summer2026-admin-notice-ltd" target="_blank" style="color: #171717; background-color: #EFEFEF; border-color: #D1D1D1; border-radius: 6px; font-size: 14px; font-weight: 500;">Give Me LIFETIME Access</a>
+        <button data-dismiss="true" class="dismiss-btn button button-link" style="color: #424242; font-size: 14px;">I Don’t Want Any Discount</button>';
+        $summer_campaign2026_notice = array(
             'thumbnail' => ESSENTIAL_BLOCKS_URL . 'assets/images/eb-logo-full.svg',
-            'html' => $spring_campaign2026_message
+            'html' => $summer_campaign2026_message
         );
 
-        //Spring Campaign 2026 Notice Add
+        //Summer Campaign 2026 Notice Add
         $notices->add(
-            'spring_campaign2026',
-            $spring_campaign2026_notice,
+            'summer_campaign2026',
+            $summer_campaign2026_notice,
             array(
-                'start' => strtotime( '12:00:00am 08th April, 2026' ),
-                'expire' => strtotime( '11:59:59pm 10th May, 2026' ),
+                'start' => $notices->time(),
+                'expire' => strtotime( '11:59:59pm 25th June, 2026' ),
                 'classes' => 'eb-notice put-dismiss-notice',
                 'dismissible' => true,
                 'refresh' => ESSENTIAL_BLOCKS_VERSION,
-                'do_action' => 'eb_spring2026_campaign',
+                'do_action' => 'eb_summer2026_campaign',
                 'display_if' => ! ESSENTIAL_BLOCKS_IS_PRO_ACTIVE
             )
         );
@@ -906,7 +907,7 @@ class Admin {
             }
 
             // Security: Validate image content and size
-            if ( ! $this->is_valid_image_content( $image_body ) ) {
+            if ( ! ImageValidator::is_valid( $image_body ) ) {
                 wp_send_json_error( array(
                     'message' => __( 'Invalid image content provided.', 'essential-blocks' )
                 ) );
@@ -1012,57 +1013,6 @@ class Admin {
     }
 
     /**
-     * Validate image content for security
-     *
-     * @param string $image_data The image data to validate
-     * @return bool True if valid, false otherwise
-     */
-    private function is_valid_image_content( $image_data ) {
-        if ( empty( $image_data ) ) {
-            return false;
-        }
-
-        // Check file size (max 10MB)
-        $max_size = 10 * 1024 * 1024; // 10MB
-        if ( strlen( $image_data ) > $max_size ) {
-            return false;
-        }
-
-        // Validate image using getimagesizefromstring
-        $image_info = getimagesizefromstring( $image_data );
-        if ( ! $image_info ) {
-            return false;
-        }
-
-        // Check image dimensions (reasonable limits)
-        $max_width  = 4096;
-        $max_height = 4096;
-        if ( $image_info[ 0 ] > $max_width || $image_info[ 1 ] > $max_height ) {
-            return false;
-        }
-
-        // Additional security: Check for suspicious content patterns
-        // Look for common file signatures that shouldn't be in images
-        $suspicious_patterns = array(
-            '<?php', // PHP code
-            '<script', // JavaScript
-            'javascript:', // JavaScript protocol
-            'data:text/', // Text data URLs
-            '<html', // HTML content
-            '#!/bin/' // Shell scripts
-        );
-
-        $data_start = substr( $image_data, 0, 1024 ); // Check first 1KB
-        foreach ( $suspicious_patterns as $pattern ) {
-            if ( stripos( $data_start, $pattern ) !== false ) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
      * update menu notice flag
      */
     public function eb_show_admin_menu_notice() {
@@ -1107,14 +1057,15 @@ class Admin {
      * @return void
      */
     public function promotion_message_on_admin_screen() {
-        $changelog_url = esc_url( 'https://essential-blocks.com/changelog/' );
+        $one_page_navigation_url = esc_url( 'https://essential-blocks.com/demo/one-page-navigation/' );
+        $copy_paste_design_url   = esc_url( 'https://essential-blocks.com/docs/eb-copy-paste-design' );
 
         $message_template = __(
-            "<p><i>📣</i> Introducing Timeline Block in <strong>Essential Blocks 6.0.0</strong> - Create visually engaging and fully customizable content timelines in WordPress to showcase your stories.! For more details, check out this <strong><a target='_blank' href='%s'>changelog</a></strong>.</p>",
+            "<p><i>📣</i> Introducing <strong><a target='_blank' href='%1\$s'>One Page Navigation</a></strong> in <strong>Essential Blocks PRO 3.1.0</strong> and <strong><a target='_blank' href='%2\$s'>Copy/Paste Style</a></strong> in <strong>Essential Blocks 6.4.0</strong> - Create smooth one page navigation for long Gutenberg pages and instantly reuse block styles with a single click.</p>",
             "essential-blocks"
         );
 
-        $message = sprintf( $message_template, $changelog_url );
+        $message = sprintf( $message_template, $one_page_navigation_url, $copy_paste_design_url );
 
         // Output HTML using heredoc for better formatting
         echo <<<HTML
@@ -1134,7 +1085,7 @@ class Admin {
         if ( get_transient( 'essential_block_whats_new_notice' ) === true ) {
             delete_transient( 'essential_block_whats_new_notice' );
 
-            $view_path = ESSENTIAL_BLOCKS_DIR_PATH . 'includes/admin/whats-new-notice.php';
+            $view_path = ESSENTIAL_BLOCKS_DIR_PATH . 'includes/Admin/whats-new-notice.php';
 
             if ( file_exists( $view_path ) ) {
                 include $view_path;

@@ -20,6 +20,7 @@ use EssentialBlocks\Core\BlocksPatterns;
 use EssentialBlocks\Modules\StyleHandler;
 use EssentialBlocks\Traits\HasSingletone;
 use EssentialBlocks\Integrations\GoogleMap;
+use EssentialBlocks\Integrations\Facebook;
 use EssentialBlocks\Integrations\Instagram;
 use EssentialBlocks\Integrations\OpenVerse;
 use EssentialBlocks\Integrations\Pagination;
@@ -35,7 +36,7 @@ use EssentialBlocks\Utils\Helper;
 
 final class Plugin {
     use HasSingletone;
-                        public $version = '6.1.1';
+        public $version = '6.4.2';
 
     public $admin;
     /**
@@ -119,6 +120,9 @@ final class Plugin {
 
         // Instagram Access Token AJAX
         Instagram::get_instance();
+
+        // Facebook Page Access Token AJAX
+        Facebook::get_instance();
 
         //Global Style Ajax for Store
         GlobalStyles::get_instance();
