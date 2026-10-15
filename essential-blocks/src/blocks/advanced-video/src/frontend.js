@@ -1,15 +1,12 @@
-import { createRoot } from "@wordpress/element";
+import { createRoot, useRef, useState } from "@wordpress/element";
 import ReactPlayer from "react-player";
+import { initStickyPlayer } from "./sticky";
 
 /*
- * Not branched on here — react-player classifies the URL itself at mount, so
- * the frontend needs no test of its own. Imported so that any future branch on
- * this file takes the same definition the editor and the Inspector use; the
- * bug this module exists to fix was three surfaces each deciding for
- * themselves. The patterns in ./media-source mirror react-player's, so a check
- * added here will agree with what the player actually does.
+ * react-player classifies the URL itself at mount; these mirror its patterns,
+ * so a branch here (the cursor shield below) agrees with what the player
+ * actually renders — a <video> element for these, an iframe for the rest.
  */
-// eslint-disable-next-line no-unused-vars
 import { isDirectMediaUrl, isStreamingUrl } from "./media-source";
 
 /**
@@ -108,6 +105,39 @@ const createMediaControls = (playerOption, onCommand) => {
 };
 
 /**
+ * Does this player need a shield for Pro's Custom Cursor?
+ *
+ * A cross-origin embed (YouTube, Vimeo, …) swallows every pointer event over
+ * it, so a cursor effect on the block goes dead the moment the pointer is over
+ * the video. A transparent layer above the iframe keeps the events in the page
+ * while the video is idle; clicking it starts playback and gets out of the way
+ * so the provider's own controls work. Pro marks the block root with
+ * `data-eb-cursor` server-side, so it is already there when this mounts.
+ *
+ * Not needed for a <video> element (events reach the page), in a lightbox (the
+ * effect is clipped to the block, not the modal), or when Pro's overlay already
+ * sets the iframe to `pointer-events: none`.
+ */
+const needsCursorShieldFor = (playerOption, url, isLightbox, cropsYouTubeChrome) =>
+    !!playerOption.closest("[data-eb-cursor]") &&
+    !!url &&
+    !isDirectMediaUrl(url) &&
+    !isStreamingUrl(url) &&
+    !isLightbox &&
+    !cropsYouTubeChrome;
+
+const CURSOR_SHIELD_STYLE = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
+    cursor: "pointer",
+    background: "transparent",
+};
+
+/**
  * Get SVG functions from global eb_frontend
  */
 const {
@@ -124,6 +154,18 @@ const AdvancedVideo = (props) => {
         _ctlPlaying,
         _ctlMuted,
     } = props;
+
+    const playerRef = useRef(null);
+    // Driven by react-player's own callbacks, so a pause from the provider's
+    // controls brings the cursor shield back. `ready` stays false while an
+    // Image Overlay poster is up — that poster is page DOM, no shield needed.
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [isReady, setIsReady] = useState(false);
+    // Set when a shield click did not lead to playback (autoplay blocked, a
+    // provider that ignores the API call). The shield then stays down for good,
+    // or every click on it would be swallowed and the video never start.
+    const [shieldRetired, setShieldRetired] = useState(false);
+    const awaitingShieldPlay = useRef(false);
 
     let url = wrapper.getAttribute("data-url");
     let controls = wrapper.getAttribute("data-controls") === "true" ? true : false;
@@ -209,9 +251,38 @@ const AdvancedVideo = (props) => {
         },
     };
 
+    const showCursorShield =
+        isReady &&
+        !isPlaying &&
+        !shieldRetired &&
+        needsCursorShieldFor(wrapper, url, isLightbox, cropsYouTubeChrome);
+
+    const playFromShield = () => {
+        // Hide first: if the browser refuses to start playback, the visitor
+        // can still click the provider's own play button.
+        setIsPlaying(true);
+        const player = playerRef.current && playerRef.current.getInternalPlayer();
+        if (!player) {
+            setShieldRetired(true);
+            return;
+        }
+        awaitingShieldPlay.current = true;
+        if (typeof player.playVideo === "function") {
+            player.playVideo(); // YouTube
+        } else if (typeof player.play === "function") {
+            const started = player.play(); // Vimeo and most other providers
+            if (started && typeof started.catch === "function") {
+                started.catch(() => setShieldRetired(true));
+            }
+        } else {
+            setShieldRetired(true);
+        }
+    };
+
     return (
         <>
             <ReactPlayer
+                ref={playerRef}
                 // react-player only reads `controls` on the initial mount — its
                 // componentDidUpdate has no live-update branch for it (unlike
                 // muted/loop). Tie the element key to `controls` so React mounts
@@ -241,22 +312,44 @@ const AdvancedVideo = (props) => {
                 // Icons only — never a re-render. A re-render here would feed
                 // the same value back through `playing` and could bounce against
                 // react-player's own isPlaying guard.
+                onReady={() => setIsReady(true)}
                 onPlay={() => {
+                    awaitingShieldPlay.current = false;
+                    setIsPlaying(true);
                     if (mediaControls) {
                         mediaControls.report({ playing: true });
                     }
                 }}
-                onPause={() =>
-                    mediaControls && mediaControls.report({ playing: false })
-                }
-                onEnded={() =>
-                    mediaControls &&
-                    mediaControls.report({ playing: loop ? true : false })
-                }
+                onPause={() => {
+                    if (awaitingShieldPlay.current) {
+                        awaitingShieldPlay.current = false;
+                        setShieldRetired(true);
+                    }
+                    setIsPlaying(false);
+                    if (mediaControls) {
+                        mediaControls.report({ playing: false });
+                    }
+                }}
+                onEnded={() => {
+                    if (!loop) {
+                        setIsPlaying(false);
+                    }
+                    if (mediaControls) {
+                        mediaControls.report({ playing: loop ? true : false });
+                    }
+                }}
                 style={{
                     aspectRatio: isLightbox ? 'unset' : '16/9',
                 }}
             />
+            {showCursorShield && (
+                <div
+                    className="eb-av-cursor-shield"
+                    style={CURSOR_SHIELD_STYLE}
+                    onClick={playFromShield}
+                    aria-hidden="true"
+                />
+            )}
         </>
     );
 };
@@ -270,6 +363,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // Skip when the player shell is missing — e.g. block is behind Protected
         // Content, so the wrapper renders but its inner DOM is the password card.
         if (!playerOption) {
+            continue;
+        }
+        // Already rendered as a native <video> by AdvancedVideo::render_callback()
+        // and driven by native.js. This script only loads for such a player when
+        // another Advanced Video on the same page needs react-player.
+        if (playerOption.hasAttribute("data-eb-native")) {
             continue;
         }
         let imageOverlay = playerOption.getAttribute("data-overlay") === "true" ? true : false;
@@ -348,91 +447,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (option === "eb-sticky") {
-            var $video = document.querySelector(".eb-player-option.eb-sticky");
-
-            // Wait for React component to render before getting height
-            setTimeout(() => {
-                var reactPlayer = document.querySelector(".eb-react-player");
-                if (!reactPlayer) {
-                    console.warn("React player element not found");
-                    return;
-                }
-                var height = reactPlayer.offsetHeight;
-                var parent = playerOption.closest(".eb-sticky").closest(".wp-block-essential-blocks-advanced-video")
-                    .offsetTop;
-
-                // close button
-                var closeBtnEl = playerOption.querySelector(".eb-sticky-video-close");
-                var closeSpan = document.createElement("span");
-                closeSpan.innerHTML = "&times;";
-                closeSpan.setAttribute("class", "eb-sticky-video-close");
-
-                let lastScroll = 0;
-                // let isSticky = false;
-                let stickyState = 'none'; // 'none', 'stuck', 'stuck-out'
-
-                const stickyVisibility = playerOption.getAttribute("data-stickyVisibility");
-                const stickyVisibilityTAB = playerOption.getAttribute("data-stickyVisibilityTAB");
-                const stickyVisibilityMOB = playerOption.getAttribute("data-stickyVisibilityMOB");
-
-                // Determine which device we're on and if sticky should be enabled
-                let shouldEnableSticky = false;
-                if (window.matchMedia("(min-width: 1025px)").matches && stickyVisibility != "hidden") {
-                    shouldEnableSticky = true;
-                } else if (window.matchMedia("(min-width: 768px) and (max-width: 1024px)").matches && stickyVisibilityTAB != "hidden") {
-                    shouldEnableSticky = true;
-                } else if (window.matchMedia("(max-width: 767px)").matches && stickyVisibilityMOB != "hidden") {
-                    shouldEnableSticky = true;
-                }
-
-                if (shouldEnableSticky) {
-                    // Single scroll event listener with unified logic
-                    const handleScroll = function () {
-                        const videoThreshold = height + parent + 320;
-                        const currentScroll = window.pageYOffset;
-
-                        // Reset sticky state when scrolled back to top
-                        if (currentScroll < height + parent + 200) {
-
-                            if (stickyState !== 'none') {
-                                $video.classList.remove("stuck", "stuck-out");
-                                stickyState = 'none';
-                                // isSticky = false;
-                                closeSpan.style.display = "none";
-                            }
-
-                            return;
-                        }
-
-                        // Make video sticky when scrolled past threshold
-                        if (currentScroll > videoThreshold && stickyState !== 'stuck') {
-                            $video.classList.remove("stuck-out");
-                            $video.classList.add("stuck");
-                            stickyState = 'stuck';
-                            // isSticky = true;
-
-                            if (closeBtnEl == null) {
-                                $video.prepend(closeSpan);
-                            }
-                            closeSpan.style.display = "inline";
-
-                            // Add close button click handler once
-                            if (!closeSpan.hasAttribute('data-listener-added')) {
-                                closeSpan.addEventListener("click", function () {
-                                    $video.classList.remove("eb-sticky");
-                                    stickyState = 'none';
-                                    // isSticky = false;
-                                });
-                                closeSpan.setAttribute('data-listener-added', 'true');
-                            }
-                        }
-
-                        lastScroll = currentScroll;
-                    };
-
-                    document.addEventListener("scroll", handleScroll);
-                }
-            }, 100); // Close setTimeout with 100ms delay
+            // Shared with native.js — see ./sticky.
+            initStickyPlayer(playerOption);
         }
 
         if (advVideoWrapper.classList.contains("lightbox")) {

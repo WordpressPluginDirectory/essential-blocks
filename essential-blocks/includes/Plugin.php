@@ -16,6 +16,7 @@ use EssentialBlocks\Core\ModifyWPCore;
 use EssentialBlocks\Integrations\Data;
 use EssentialBlocks\Integrations\Form;
 use EssentialBlocks\Core\PageTemplates;
+use EssentialBlocks\Core\HeroPreload;
 use EssentialBlocks\Core\InteractivityScriptGuard;
 use EssentialBlocks\Core\BlocksPatterns;
 use EssentialBlocks\Modules\StyleHandler;
@@ -37,7 +38,7 @@ use EssentialBlocks\Utils\Helper;
 
 final class Plugin {
     use HasSingletone;
-    public $version = '6.4.6';
+    public $version = '6.5.0';
 
     public $admin;
     /**
@@ -94,6 +95,9 @@ final class Plugin {
 
         // Templates
         PageTemplates::get_instance();
+
+        // Preload the first section's background image (usually the LCP).
+        HeroPreload::get_instance();
 
         //NFT Ajax
         NFT::get_instance();
@@ -240,8 +244,8 @@ final class Plugin {
         $this->define( 'EB_PATTERN', true );
 
         //Those flags needs to update if notice
-        $this->define( 'EB_PROMOTION_FLAG', 13 );
-        $this->define( 'EB_ADMIN_MENU_FLAG', 13 );
+        $this->define( 'EB_PROMOTION_FLAG', 14 );
+        $this->define( 'EB_ADMIN_MENU_FLAG', 14 );
         $this->define('EB_SHOW_WHATS_NEW_NOTICE', 1);
 
         //Table Name constants

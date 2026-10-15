@@ -277,41 +277,67 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 6.4.6", "essential-blocks")}
+                                    {__("Version: 6.5.0", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("27/09/2026", "essential-blocks")}
+                                        {__("15/10/2026", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Flex Container responsive issue fix.",
+                                            "Added: Product Grid | WooCommerce Brands filter",
                                             "essential-blocks"
                                         )}
+
                                     </li>
                                     <li>
                                         {__(
-                                            "Improved: Security enhancements",
+                                            "Added: Slider | Lightbox option in Block Defaults",
                                             "essential-blocks"
                                         )}
+
                                     </li>
                                     <li>
                                         {__(
-                                            "Added: Background Extension responsive improvement.",
+                                            "Improved: Slider | Image alt text support",
                                             "essential-blocks"
                                         )}
+
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Heading Design issue fix.",
+                                            "Fixed: Column resize issue in editor",
                                             "essential-blocks"
                                         )}
+
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Image Hotspots tooltip & mobile overflow issues",
+                                            "essential-blocks"
+                                        )}
+
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Post Meta text overlap issue",
+                                            "essential-blocks"
+                                        )}
+
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Template part styles inside patterns",
+                                            "essential-blocks"
+                                        )}
+
                                     </li>
                                     <li>
                                         {__(
                                             "Few minor bug fixes & improvements",
                                             "essential-blocks"
                                         )}
+
                                     </li>
                                 </ul>
 
